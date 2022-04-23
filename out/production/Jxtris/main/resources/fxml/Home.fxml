@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/home.css"
+          xmlns="http://javafx.com/javafx/16" fx:controller="main.java.controllers.HomeController">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="5.0"/>
+        <ColumnConstraints percentWidth="40.0"/>
+        <ColumnConstraints percentWidth="40.0"/>
+        <ColumnConstraints percentWidth="15.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="40.0"/>
+        <RowConstraints percentHeight="25.0"/>
+        <RowConstraints percentHeight="25.0"/>
+        <RowConstraints percentHeight="10.0"/>
+    </rowConstraints>
+    <Label fx:id="title" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text=" Jxtris"
+           GridPane.columnIndex="1" GridPane.columnSpan="2">
+        <padding>
+            <Insets left="10.0"/>
+        </padding>
+    </Label>
+    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+            onAction="#playClick" prefHeight="188.0" prefWidth="512.0" text="Play" GridPane.columnIndex="1"
+            GridPane.rowIndex="1">
+        <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </GridPane.margin>
+    </Button>
+    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+            onAction="#helpClick" text="Help" GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </GridPane.margin>
+    </Button>
+    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+            onAction="#settingsClick" text="Settings" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </GridPane.margin>
+    </Button>
+    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+            onAction="#controlsClick" text="Controls" GridPane.columnIndex="2" GridPane.rowIndex="2">
+        <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </GridPane.margin>
+    </Button>
+</GridPane>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16"
+          fx:controller="main.java.controllers.GamemodeController">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="12.5"/>
+        <ColumnConstraints percentWidth="12.5"/>
+        <ColumnConstraints percentWidth="25.0"/>
+        <ColumnConstraints percentWidth="25.0"/>
+        <ColumnConstraints percentWidth="25.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="12.5"/>
+        <RowConstraints percentHeight="12.5"/>
+        <RowConstraints percentHeight="7.5"/>
+        <RowConstraints percentHeight="15.0"/>
+        <RowConstraints percentHeight="15.0"/>
+        <RowConstraints percentHeight="15.0"/>
+        <RowConstraints percentHeight="15.0"/>
+        <RowConstraints percentHeight="7.5"/>
+    </rowConstraints>
+    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+            onAction="#backClick" text="Back">
+        <font>
+            <Font size="37.0"/>
+        </font>
+        <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </GridPane.margin>
+    </Button>
+    <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Gamemode" GridPane.columnIndex="2"
+           GridPane.columnSpan="2" GridPane.rowSpan="2">
+        <font>
+            <Font size="120.0"/>
+        </font>
+    </Label>
+    <Button alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+            mnemonicParsing="false" onAction="#sprintClick" text="Sprint" GridPane.columnIndex="2"
+            GridPane.columnSpan="2" GridPane.rowIndex="3">
+        <font>
+            <Font size="46.0"/>
+        </font>
+        <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </GridPane.margin>
+    </Button>
+    <Button alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+            mnemonicParsing="false" text="Ultra" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
+        <font>
+            <Font size="46.0"/>
+        </font>
+        <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </GridPane.margin>
+    </Button>
+    <Button alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+            mnemonicParsing="false" text="Marathon" GridPane.columnIndex="2" GridPane.columnSpan="2"
+            GridPane.rowIndex="5">
+        <font>
+            <Font size="46.0"/>
+        </font>
+        <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </GridPane.margin>
+    </Button>
+    <Button alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+            mnemonicParsing="false" text="Free" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6">
+        <font>
+            <Font size="46.0"/>
+        </font>
+        <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </GridPane.margin>
+    </Button>
+</GridPane>
