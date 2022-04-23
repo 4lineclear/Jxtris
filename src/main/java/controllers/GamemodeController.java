@@ -6,10 +6,11 @@ import javafx.scene.layout.GridPane;
 
 import java.util.Hashtable;
 
-public class GamemodeController extends BaseController{
+public class GamemodeController extends BaseController {
     @FXML
     GridPane mainPanel;
     Scene home, game;
+
     @FXML
     public void backClick() {
         stage.setScene(home);

@@ -1,25 +1,23 @@
 package main.java;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.java.controllers.GameController;
-import main.java.controllers.GamemodeController;
-import main.java.controllers.HomeController;
 import main.java.controllers.SceneObject;
+import main.java.game.gameModel.Game;
+import main.java.game.gameModel.IGame;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class Jxtris extends Application {
 
+    Hashtable<String, SceneObject> allScenes = new Hashtable<>();
+
     public static void main(String[] args) {
 //        launch(args);
-        System.out.println("testest 123");
+        IGame game = new Game();
+        System.exit(0);
     }
-    Hashtable<String, SceneObject> allScenes = new Hashtable<>();
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         SceneObject home = new SceneObject(getClass().getResource("../resources/fxml/Home.fxml"));

@@ -1,13 +1,22 @@
 package main.java.game.gameModel;
 
+import java.util.*;
+
 /**
  * The base game model of Jxtris
  **/
-public class Game implements IGame{
+public class Game implements IGame {
     private final Matrix matrix;
-    public Game(){
-        this.matrix = new Matrix();
+    private final Queue<Mino> nextMinos;
+    private int X,Y;
+
+    public Game() {
+        matrix = new Matrix();
+        nextMinos = new LinkedList<>();
+        generateNextMinos();
+        generateNextMinos();
     }
+
     @Override
     public void move(int n) {
 
@@ -41,5 +50,13 @@ public class Game implements IGame{
     @Override
     public void stop() {
 
+    }
+    private void generateNextMinos(){
+        List<Mino> tempMinos = new ArrayList<>();
+        for(int i = 0; i < 7; i++){
+            tempMinos.add(new Mino(i,0));
+        }
+        Collections.shuffle(tempMinos);
+        nextMinos.addAll(tempMinos);
     }
 }

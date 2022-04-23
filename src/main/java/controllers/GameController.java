@@ -22,15 +22,18 @@ public class GameController extends BaseController implements Initializable {
     AnchorPane canvasPanel;
     @FXML
     Canvas canvas;
+
     @FXML
-    public void backClick(){
+    public void backClick() {
         playButton.setDisable(false);
         stage.setScene(gamemode);
     }
+
     @FXML
-    public void playClick(){
+    public void playClick() {
         playButton.setDisable(true);
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

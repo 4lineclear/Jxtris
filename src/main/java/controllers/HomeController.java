@@ -13,6 +13,7 @@ public class HomeController extends BaseController implements Initializable {
     @FXML
     GridPane mainPanel;
     Scene gamemode;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeFontSizeManager();
