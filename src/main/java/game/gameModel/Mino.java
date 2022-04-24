@@ -1,15 +1,12 @@
 package main.java.game.gameModel;
 
-import java.util.EnumMap;
+//TODO: Rename a lot of these variable names to be more descriptive
 
 /**
  * The piece that the user can control
  * <p> Made up of 4 cartesian coordinates </p>
  **/
 public class Mino {
-    private Block mino;
-    private static Block[] allBlocks = Block.values();
-    private int rotation;
     /**
      * Contains all pieces and their orientations
      * <pre>
@@ -65,30 +62,34 @@ public class Mino {
                     {{2, 0}, {1, 1}, {2, 1}, {1, 2}}
             }
     };
-    private static final EnumMap<Block, Integer> blockNums = new EnumMap<>(Block.class);
-    static {
-        int num = 0;
-        for (Block block : Block.values()) {
-            blockNums.put(block, num++);
-        }
-    }
+
+    private static final Block[] allBlocks = Block.values();
+
+    private Block mino;
+    private int rotation;
 
     public Mino(int mino, int rotation) {
         this.mino = allBlocks[mino];
         this.rotation = rotation;
-        System.out.println(this.mino);
+    }
+    public Mino(Block mino, int rotation){
+        this.mino = mino;
+        this.rotation = rotation;
     }
 
-    public Block getBlock(){
-        return mino;
-    }
-    public int[][] getPiece(){
+    public int[][] getMinoCC() {
         return allMinos[mino.ordinal()][rotation];
+    }
+
+    public Block getMino(){
+        return this.mino;
     }
     public void setMino(int mino) {
         this.mino = allBlocks[mino];
     }
-
+    public int getRotation(){
+        return rotation;
+    }
     public void setRotation(int rotation) {
         this.rotation = rotation;
     }

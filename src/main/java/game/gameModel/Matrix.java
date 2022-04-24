@@ -1,20 +1,72 @@
 package main.java.game.gameModel;
 
 public class Matrix {
-    public final Block[][] board;
+    /**
+     * The board the game is played in
+     * <pre>
+     * {@code board} - All the blocks int he game
+     * {@code board[a]} - A row of blocks
+     * {@code board[a][b]} - A single block
+     * </pre>
+     **/
+    private final Block[][] board;
+    /**
+     * The number of columns of the {@link Matrix#board}
+     **/
+    private final int x;
+    /**
+     * The number of rows of the {@link Matrix#board}
+     **/
+    private final int y;
 
     public Matrix() {
-        this.board = new Block[20][10];
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 10; j++) {
+        x = 10;
+        y = 20;
+        this.board = new Block[y][x];
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
                 board[i][j] = Block.X;
             }
         }
     }
-    public void addPiece(Mino mino, int position){
-        for(int[] block : mino.getPiece()){
-            board[block[1]][block[0]] = mino.getBlock();
+    public void addMino(Mino mino, int x, int y){
+        for(int[] block : mino.getMinoCC()){
+            board[y + block[1]][x + block[0]] = mino.getMino();
         }
+    }
+    /**
+     * Checks if moving a mino in a given x and y is allowed
+     * <p>
+     *     Given values should be after a given move
+     * </p>
+     * @param mino The mino to be checked
+     * @param x The x direction to be at
+     * @param y The y direction to be at
+     * @return Moved mino is within bounds, and free space({@link Block#X})
+     * @see Matrix#checkMino(Mino, int, int)
+     **/
+    public boolean checkMino(Mino mino, int x, int y){
+        for(int[] block : mino.getMinoCC()){
+            int sumX = x + block[0], sumY = y + block[1];
+            if(!matrixBound(sumX, sumY) || board[sumY][sumX] != Block.X) {
+                System.out.println(false);
+                return false;
+            }
+        }
+        System.out.println(true);
+        return true;
+    }
+    /**
+     * Checks if inputted numbers(x,y) are within the matrix's bounds
+     * <p>
+     *     Uses {@link Matrix#x} and {@link Matrix#y}
+     * </p>
+     * @param x The x vector to be checked
+     * @param y The y vector to be checked
+     * @return True if a coordinate can be found on {@link Matrix#board}
+     **/
+    private boolean matrixBound(int x, int y){
+        return x > 0 && x < this.x && y >=0 && y < this.y;
     }
 
     @Override

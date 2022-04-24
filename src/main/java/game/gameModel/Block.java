@@ -3,7 +3,7 @@ package main.java.game.gameModel;
 /**
  * The block Jxtris is made up of
  * <p>
- * X block is an empty block, all other blocks are meant to be from a Tetramino
+ * X block is an empty block, all other blocks are meant to be from a Mino
  * </p>
  **/
 public enum Block {

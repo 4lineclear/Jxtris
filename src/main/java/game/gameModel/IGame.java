@@ -10,9 +10,9 @@ public interface IGame {
     /**
      * Move the current piece an n number of blocks
      *
-     * @param n The number of movements, and direction
+     * @param x The number of movements, and direction
      **/
-    void move(int n);
+    void move(int x);
 
     /**
      * Rotate the current piece an n number of blocks
