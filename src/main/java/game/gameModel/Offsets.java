@@ -1,7 +1,5 @@
 package main.java.game.gameModel;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.HashMap;
 
 public class Offsets {
@@ -61,21 +59,21 @@ public class Offsets {
      * <pre>
      * First, evaluate whether the difference between from and to is |2|
      * If it is, pull from {@link Offsets#offsets180}
-     * Else, evaluated if the block being check is {@link Block#I}
+     * Else, evaluated if the block being check is {@link BlockType#I}
      * If it is, pull from {@link Offsets#offsetsI}
      * Else, pull from {@link Offsets#offsets}
      * </pre>
      * {@code final int key = from * 10 + to}
-     * @param block The block being checked
+     * @param type The type of Mino being checked
      * @param from The current rotation of the current mino
      * @param to The rotation to be checked
      * @return An {@code int[][]}
      **/
-    public int[][] get(Block block, int from, int to){
+    public int[][] get(BlockType type, int from, int to){
         final int key = from * 10 + to;
         return (from - to == 2 || from - to == -2 ?
                 offsets180 :
-                block == Block.I ?
+                type == BlockType.I ?
                         offsetsI :
                         offsets)
                 .get(key);

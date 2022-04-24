@@ -9,7 +9,7 @@ public class Matrix {
      * {@code board[a][b]} - A single block
      * </pre>
      **/
-    private final Block[][] board;
+    private final BlockType[][] board;
     /**
      * The number of columns of the {@link Matrix#board}
      **/
@@ -22,16 +22,16 @@ public class Matrix {
     public Matrix() {
         x = 10;
         y = 20;
-        this.board = new Block[y][x];
+        this.board = new BlockType[y][x];
         for (int i = 0; i < y; i++) {
             for (int j = 0; j < x; j++) {
-                board[i][j] = Block.X;
+                board[i][j] = BlockType.X;
             }
         }
     }
     public void addMino(Mino mino, int x, int y){
         for(int[] block : mino.getMinoCC()){
-            board[y + block[1]][x + block[0]] = mino.getMino();
+            board[y + block[1]][x + block[0]] = mino.getType();
         }
     }
     /**
@@ -42,18 +42,16 @@ public class Matrix {
      * @param mino The mino to be checked
      * @param x The x direction to be at
      * @param y The y direction to be at
-     * @return Moved mino is within bounds, and free space({@link Block#X})
+     * @return Moved mino is within bounds, and free space({@link BlockType#X})
      * @see Matrix#checkMino(Mino, int, int)
      **/
     public boolean checkMino(Mino mino, int x, int y){
         for(int[] block : mino.getMinoCC()){
             int sumX = x + block[0], sumY = y + block[1];
-            if(!matrixBound(sumX, sumY) || board[sumY][sumX] != Block.X) {
-                System.out.println(false);
+            if(!matrixBound(sumX, sumY) || board[sumY][sumX] != BlockType.X) {
                 return false;
             }
         }
-        System.out.println(true);
         return true;
     }
     /**
@@ -72,8 +70,8 @@ public class Matrix {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Block[] row : board) {
-            for (Block block : row) {
+        for (BlockType[] row : board) {
+            for (BlockType block : row) {
                 sb.append(block.name()).append(" ");
             }
             sb.append("\n");

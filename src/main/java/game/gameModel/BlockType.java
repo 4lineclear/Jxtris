@@ -6,7 +6,7 @@ package main.java.game.gameModel;
  * X block is an empty block, all other blocks are meant to be from a Mino
  * </p>
  **/
-public enum Block {
+public enum BlockType {
     I(0),
     J(1),
     O(2),
@@ -16,7 +16,7 @@ public enum Block {
     Z(6),
     X(7);
     public final int blockNum;
-    Block(int blockNum){
+    BlockType(int blockNum){
         this.blockNum = blockNum;
     }
 

@@ -63,29 +63,29 @@ public class Mino {
             }
     };
 
-    private static final Block[] allBlocks = Block.values();
+    private static final BlockType[] allBlocks = BlockType.values();
 
-    private Block mino;
+    private BlockType type;
     private int rotation;
 
     public Mino(int mino, int rotation) {
-        this.mino = allBlocks[mino];
+        this.type = allBlocks[mino];
         this.rotation = rotation;
     }
-    public Mino(Block mino, int rotation){
-        this.mino = mino;
+    public Mino(BlockType mino, int rotation){
+        this.type = mino;
         this.rotation = rotation;
     }
 
     public int[][] getMinoCC() {
-        return allMinos[mino.ordinal()][rotation];
+        return allMinos[type.ordinal()][rotation];
     }
 
-    public Block getMino(){
-        return this.mino;
+    public BlockType getType(){
+        return this.type;
     }
     public void setMino(int mino) {
-        this.mino = allBlocks[mino];
+        this.type = allBlocks[mino];
     }
     public int getRotation(){
         return rotation;
@@ -97,7 +97,7 @@ public class Mino {
     @Override
     public String toString() {
         return "Mino{" +
-                "mino=" + mino +
+                "type=" + type +
                 ", rotation=" + rotation +
                 '}';
     }
