@@ -22,7 +22,7 @@ public class Game implements IGame {
     public Game() {
         matrix = new Matrix();
         offsets = new Offsets();
-        nextMinos = new LinkedList<>();
+        nextMinos = new ArrayDeque<>();
         generateNextMinos();
         generateNextMinos();
         currMino = nextMinos.remove();
@@ -30,9 +30,18 @@ public class Game implements IGame {
         x = 3;
         y = 0;
         held = false;
-        rotate(1);
+        currMino = new Mino(0,0);
+        move(-3);
         hardDrop();
+        currMino = new Mino(0,0);
+        move(1);
         hardDrop();
+        currMino = new Mino(2,0);
+        move(4);
+        hardDrop();
+        iterateMino();
+        hardDrop();
+
         System.out.println(matrix);
     }
 
@@ -59,17 +68,16 @@ public class Game implements IGame {
 
     @Override
     public void softDrop(int n) {
-        for(int i = n; matrix.checkMino(currMino, x, y); i++){
+        for(int i = 0; matrix.checkMino(currMino, x, y + 1) && i < n; i++){
             y++;
         }
     }
 
     @Override
     public void hardDrop() {
-        while(matrix.checkMino(currMino, x, y)){
+        while(matrix.checkMino(currMino, x, y + 1)){
             y++;
         }
-        y--;
         placePiece();
     }
 

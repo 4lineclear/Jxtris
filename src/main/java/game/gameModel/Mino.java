@@ -6,7 +6,7 @@ package main.java.game.gameModel;
  * The piece that the user can control
  * <p> Made up of 4 cartesian coordinates </p>
  **/
-public class Mino {
+class Mino {
     /**
      * Contains all pieces and their orientations
      * <pre>
@@ -67,7 +67,17 @@ public class Mino {
 
     private BlockType type;
     private int rotation;
-
+    /**
+     * Initialize a {@link Mino} using a given number for the {@link Mino#type} and {@link Mino#rotation}
+     * <pre>Given a number n, {@link Mino#type} can be:
+     * 0 - {@link BlockType#I}
+     * 1 - {@link BlockType#J}
+     * 2 - {@link BlockType#O}
+     * 3 - {@link BlockType#L}
+     * 4 - {@link BlockType#S}
+     * 5 - {@link BlockType#T}
+     * 6 - {@link BlockType#Z} </pre>
+     **/
     public Mino(int mino, int rotation) {
         this.type = allBlocks[mino];
         this.rotation = rotation;

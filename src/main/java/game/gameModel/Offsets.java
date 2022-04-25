@@ -2,7 +2,7 @@ package main.java.game.gameModel;
 
 import java.util.HashMap;
 
-public class Offsets {
+class Offsets {
     private final HashMap<Integer, int[][]> offsets, offsetsI, offsets180;
 
     public Offsets(){
