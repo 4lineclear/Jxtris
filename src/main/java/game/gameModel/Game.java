@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * The base game model of Jxtris
  **/
-class Game implements IGame {
+public class Game implements IGame {
     private final Matrix matrix;
     private final Queue<Mino> nextMinos;
     private Mino currMino, heldMino;
