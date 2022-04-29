@@ -90,6 +90,9 @@ class Mino {
     public int[][] getMinoCC() {
         return allMinos[type.ordinal()][rotation];
     }
+    public int[][] getRotated(int rotation){
+        return allMinos[type.ordinal()][rotation];
+    }
 
     public BlockType getType(){
         return this.type;
