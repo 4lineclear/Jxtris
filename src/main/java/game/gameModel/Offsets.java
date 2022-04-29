@@ -45,8 +45,8 @@ class Offsets {
         //Note: These keys should NOT be changed,
         //unless changing the system used to save
         //mino orientation
-        int[] keys = {01, 10, 12, 21, 23, 32, 30, 03};
-        int[] keys180 = {02, 20, 13, 31};
+        int[] keys = {1, 10, 12, 21, 23, 32, 30, 3};
+        int[] keys180 = {2, 20, 13, 31};
         for (int i = 0; i < 8; i++) {
             offsets.put(keys[i], offsetsArr[i]);
             offsetsI.put(keys[i], offsetsIArr[i]);

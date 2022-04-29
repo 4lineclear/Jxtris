@@ -29,7 +29,7 @@ public class Jxtris extends ScenicApplication {
      * </p>
      *
      * @param stage The stage given by {@link ScenicStage}
-     * @throws Exception could be literally anything
+     * @throws IOException most likely file is not found
      **/
     @Override
     public void scenicStart(ScenicStage stage) throws IOException {

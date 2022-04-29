@@ -95,7 +95,7 @@ class Matrix {
      *
      * @param x The x vector to be checked
      * @param y The y vector to be checked
-     * @return True if a coordinate can be found on {@link Matrix#board}(Meaning its not out of bounds)
+     * @return True if a coordinate can be found on {@link Matrix#board}(Meaning it's not out of bounds)
      **/
     private boolean matrixBound(int x, int y) {
         return x >= 0 && x < this.x && y >= 0 && y < this.y;

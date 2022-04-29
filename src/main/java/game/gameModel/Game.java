@@ -155,7 +155,7 @@ public class Game implements IGame {
      * @param n     The rotation to check
      * @param testX The offset int the x to check
      * @param testY The offset int the y to check
-     * @return True if a rotation is valid, false if it isnt
+     * @return True if a rotation is valid, false if it isn't
      **/
     private boolean rotationTest(int testX, int testY, int n) {
         for (int[] block : currMino.getRotated(n)) {
