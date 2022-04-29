@@ -14,7 +14,7 @@ class Mino {
      * {@code allMinos[a]} - all orientations of a single mino
      * {@code allMinos[a][b]} - a single orientation of a mino
      * {@code allMinos[a][b][c]} - the cartesian coordinates of a single block
-     * {@code allMinos[a][b][c][d]} - the x or y coordinate of a block
+     * {@code allMinos[a][b][c][d]} - the x[0] or y[1] coordinate of a block
      * </pre>
      * Minos, in order are: I,J,O,L,S,T,Z
      **/

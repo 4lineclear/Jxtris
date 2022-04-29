@@ -1,8 +1,11 @@
 package main.java;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.java.controllers.SceneObject;
+import main.java.framework.ScenicController;
+import main.java.framework.ScenicStage;
 import main.java.game.gameModel.Game;
 import main.java.game.gameModel.IGame;
 
@@ -19,9 +22,9 @@ public class Jxtris extends Application {
      * Driver function, launches {@link Jxtris#start(Stage)}
      **/
     public static void main(String[] args) {
-//        launch(args);
-        IGame game = new Game();
-        System.exit(0);
+        launch(args);
+//        IGame game = new Game();
+//        System.exit(0);
     }
 
     /**
@@ -29,30 +32,39 @@ public class Jxtris extends Application {
      * <p>
      *     Also creates MVC components
      * </p>
-     * @param primaryStage The stage given by JavaFX
+     * @param stage The stage given by JavaFX
      * @throws Exception could be literally anything
      **/
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        SceneObject home = new SceneObject(getClass().getResource("../resources/fxml/Home.fxml"));
-        home.loadAll();
-        allScenes.put(home.getFileName(), home);
-
-        SceneObject gamemode = new SceneObject(getClass().getResource("../resources/fxml/Gamemode.fxml"));
-        gamemode.loadAll();
-        allScenes.put(gamemode.getFileName(), gamemode);
-
-        SceneObject game = new SceneObject(getClass().getResource("../resources/fxml/Game.fxml"));
-        game.loadAll();
-        allScenes.put(game.getFileName(), game);
-
-        home.controller.setup(primaryStage, allScenes);
-        gamemode.controller.setup(primaryStage, allScenes);
-        game.controller.setup(primaryStage, allScenes);
-
-        primaryStage.setScene(home.scene);
-        primaryStage.setTitle("Jxtris");
-        primaryStage.setResizable(false);
-        primaryStage.show();
+    public void start(Stage stage) throws Exception {
+        stage = new ScenicStage();
+        ScenicController.setFxmlFilePath("../resources/fxml/");
+        ScenicController.setLoaderClass(this.getClass());
+        ScenicController home = new ScenicController("Home") {};
+        ((ScenicStage)stage).addScene(home);
+        ((ScenicStage)stage).setScene("Home");
+        stage.setTitle("Jxtris");
+        stage.setResizable(false);
+        stage.show();
+//        SceneObject home = new SceneObject(getClass().getResource("../resources/fxml/Home.fxml"));
+//        home.loadAll();
+//        allScenes.put(home.getFileName(), home);
+//
+//        SceneObject gamemode = new SceneObject(getClass().getResource("../resources/fxml/Gamemode.fxml"));
+//        gamemode.loadAll();
+//        allScenes.put(gamemode.getFileName(), gamemode);
+//
+//        SceneObject game = new SceneObject(getClass().getResource("../resources/fxml/Game.fxml"));
+//        game.loadAll();
+//        allScenes.put(game.getFileName(), game);
+//
+//        home.controller.setup(primaryStage, allScenes);
+//        gamemode.controller.setup(primaryStage, allScenes);
+//        game.controller.setup(primaryStage, allScenes);
+//
+//        primaryStage.setScene(home.scene);
+//        primaryStage.setTitle("Jxtris");
+//        primaryStage.setResizable(false);
+//        primaryStage.show();
     }
 }
