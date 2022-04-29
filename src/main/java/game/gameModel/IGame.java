@@ -3,7 +3,7 @@ package main.java.game.gameModel;
 /**
  * The template for the Jxtris game
  * <p>
- *     Intended to work without the knowledge of a GUI, and can simply be plugged into
+ * Intended to work without the knowledge of a GUI, and can simply be plugged into
  * </p>
  **/
 public interface IGame {

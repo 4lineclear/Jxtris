@@ -7,12 +7,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import main.java.framework.ScenicController;
 
 import java.net.URL;
-import java.util.Hashtable;
 import java.util.ResourceBundle;
 
-public class GameController extends BaseController implements Initializable {
+public class GameController extends ScenicController implements Initializable {
     Scene gamemode;
     @FXML
     Button playButton;
@@ -26,7 +26,7 @@ public class GameController extends BaseController implements Initializable {
     @FXML
     public void backClick() {
         playButton.setDisable(false);
-        stage.setScene(gamemode);
+        setScene("Gamemode");
     }
 
     @FXML
@@ -39,8 +39,4 @@ public class GameController extends BaseController implements Initializable {
 
     }
 
-    @Override
-    protected void setScenes(Hashtable<String, SceneObject> scenes) {
-        gamemode = scenes.get("Gamemode.fxml").scene;
-    }
 }

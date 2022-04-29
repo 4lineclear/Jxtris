@@ -67,6 +67,7 @@ class Mino {
 
     private BlockType type;
     private int rotation;
+
     /**
      * Initialize a {@link Mino} using a given number for the {@link Mino#type} and {@link Mino#rotation}
      * <pre>Given a number n, {@link Mino#type} can be:
@@ -82,7 +83,8 @@ class Mino {
         this.type = allBlocks[mino];
         this.rotation = rotation;
     }
-    public Mino(BlockType mino, int rotation){
+
+    public Mino(BlockType mino, int rotation) {
         this.type = mino;
         this.rotation = rotation;
     }
@@ -90,19 +92,23 @@ class Mino {
     public int[][] getMinoCC() {
         return allMinos[type.ordinal()][rotation];
     }
-    public int[][] getRotated(int rotation){
+
+    public int[][] getRotated(int rotation) {
         return allMinos[type.ordinal()][rotation];
     }
 
-    public BlockType getType(){
+    public BlockType getType() {
         return this.type;
     }
+
     public void setMino(int mino) {
         this.type = allBlocks[mino];
     }
-    public int getRotation(){
+
+    public int getRotation() {
         return rotation;
     }
+
     public void setRotation(int rotation) {
         this.rotation = rotation;
     }

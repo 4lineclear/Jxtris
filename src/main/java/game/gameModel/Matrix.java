@@ -1,7 +1,6 @@
 package main.java.game.gameModel;
 
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.Queue;
 
 /**
@@ -40,62 +39,66 @@ class Matrix {
             }
         }
     }
-    public void addMino(Mino mino, int x, int y){
 
-        for(int[] block : mino.getMinoCC()){
+    public void addMino(Mino mino, int x, int y) {
+
+        for (int[] block : mino.getMinoCC()) {
             int sumX = x + block[0], sumY = y + block[1];
             board[sumY][sumX] = mino.getType();
-            rowCache[sumY] +=1;
-            if(rowCache[sumY] > 9) linesToClear.add(sumY);
+            rowCache[sumY] += 1;
+            if (rowCache[sumY] > 9) linesToClear.add(sumY);
         }
-        if(linesToClear.size() > 0){
-            while(!linesToClear.isEmpty()){
+        if (linesToClear.size() > 0) {
+            while (!linesToClear.isEmpty()) {
                 int row = linesToClear.remove();
                 clearRow(row);
                 rowCache[row] = 0;
             }
         }
     }
-    private void clearRow(int clearPos){
-        for(int j=clearPos; j>1;j--)
-        {
-            for(int i = x - 1; i >= 0; i--)
-            {
+
+    private void clearRow(int clearPos) {
+        for (int j = clearPos; j > 1; j--) {
+            for (int i = x - 1; i >= 0; i--) {
                 board[j][i] = board[j - 1][i];
             }
         }
     }
+
     /**
      * Checks if moving a mino in a given x and y is allowed
      * <p>
-     *     Given values should be after a given move
+     * Given values should be after a given move
      * </p>
+     *
      * @param mino The mino to be checked
-     * @param x The x direction to be at
-     * @param y The y direction to be at
+     * @param x    The x direction to be at
+     * @param y    The y direction to be at
      * @return Moved mino is within bounds, and free space({@link BlockType#X})
      * @see Matrix#checkMino(Mino, int, int)
      **/
-    public boolean checkMino(Mino mino, int x, int y){
-        for(int[] block : mino.getMinoCC()){
+    public boolean checkMino(Mino mino, int x, int y) {
+        for (int[] block : mino.getMinoCC()) {
             int sumX = x + block[0], sumY = y + block[1];
-            if(!matrixBound(sumX, sumY) || board[sumY][sumX] != BlockType.X) {
+            if (!matrixBound(sumX, sumY) || board[sumY][sumX] != BlockType.X) {
                 return false;
             }
         }
         return true;
     }
+
     /**
      * Checks if inputted numbers(x,y) are within the matrix's bounds
      * <p>
-     *     Uses {@link Matrix#x} and {@link Matrix#y}
+     * Uses {@link Matrix#x} and {@link Matrix#y}
      * </p>
+     *
      * @param x The x vector to be checked
      * @param y The y vector to be checked
      * @return True if a coordinate can be found on {@link Matrix#board}(Meaning its not out of bounds)
      **/
-    private boolean matrixBound(int x, int y){
-        return x >= 0 && x < this.x && y >=0 && y < this.y;
+    private boolean matrixBound(int x, int y) {
+        return x >= 0 && x < this.x && y >= 0 && y < this.y;
     }
 
     @Override

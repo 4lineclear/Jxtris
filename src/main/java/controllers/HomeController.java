@@ -2,26 +2,19 @@ package main.java.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import main.java.framework.ScenicController;
 
 import java.net.URL;
-import java.util.Hashtable;
 import java.util.ResourceBundle;
 
-public class HomeController extends BaseController implements Initializable {
+public class HomeController extends ScenicController implements Initializable {
     @FXML
     GridPane mainPanel;
-    Scene gamemode;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeFontSizeManager();
-    }
-
-    @Override
-    protected void setScenes(Hashtable<String, SceneObject> scenes) {
-        gamemode = scenes.get("Gamemode.fxml").scene;
     }
 
     private void initializeFontSizeManager() {
@@ -41,7 +34,7 @@ public class HomeController extends BaseController implements Initializable {
 
     @FXML
     public void playClick() {
-        stage.setScene(gamemode);
+        setScene("Gamemode");
     }
 
     @FXML

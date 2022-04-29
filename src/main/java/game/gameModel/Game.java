@@ -13,20 +13,29 @@ public class Game implements IGame {
     /**
      * Queue holding the next pieces
      * <p>
-     *     7 pieces are added when there are less than 8 left
+     * 7 pieces are added when there are less than 8 left
      * </p>
+     *
      * @see Game#iterateMino()
      **/
     private final Queue<Mino> nextMinos;
     /**
+     * Tool to get the required offsets
+     * <p>
+     * Is used to lessen the size of the {@link Matrix} and {@link Game} classes
+     * </p>
+     **/
+    private final Offsets offsets;
+    /**
      * The mino currently on the board, is not actually put onto the {@link Game#matrix}
      * <p>
-     *     More is put onto the {@link Game#matrix} when it is placed
+     * More is put onto the {@link Game#matrix} when it is placed
      * </p>
      **/
     private Mino currMino;
     /**
      * The mino currently held
+     *
      * @see Game#hold()
      * @see IGame#hold()
      **/
@@ -34,26 +43,19 @@ public class Game implements IGame {
     /**
      * Stores whether the currently held mino has been recently held(before placing another block)
      * <p>
-     *     Stops the user from repeatedly holding to gain more time
+     * Stops the user from repeatedly holding to gain more time
      * </p>
      **/
     private boolean held;
     /**
      * Coordinate for the current piece
      **/
-    private int x,y;
-    /**
-     * Tool to get the required offsets
-     * <p>
-     *     Is used to lessen the size of the {@link Matrix} and {@link Game} classes
-     * </p>
-     **/
-    private final Offsets offsets;
+    private int x, y;
 
     /**
      * Game's constructor
      * <p>
-     *     Need to move some of the things here into {@link Game#start()}
+     * Need to move some of the things here into {@link Game#start()}
      * </p>
      **/
     public Game() {
@@ -63,7 +65,7 @@ public class Game implements IGame {
         generateNextMinos();
         generateNextMinos();
         currMino = nextMinos.remove();
-        heldMino = new Mino(BlockType.X,0);
+        heldMino = new Mino(BlockType.X, 0);
         x = 3;
         y = 0;
         held = false;
@@ -85,17 +87,17 @@ public class Game implements IGame {
 
     @Override
     public void move(int x) {
-        if(matrix.checkMino(currMino, this.x + x,  this.y)) {
+        if (matrix.checkMino(currMino, this.x + x, this.y)) {
             this.x += x;
         }
     }
 
     @Override
     public void rotate(int n) {
-        if(currMino.getType() == BlockType.O) return;
+        if (currMino.getType() == BlockType.O) return;
         int[][] tests = offsets.get(currMino.getType(), currMino.getRotation(), n);
-        for(int[] test : tests){
-            if(rotationTest(test[0], test[1],n)){
+        for (int[] test : tests) {
+            if (rotationTest(test[0], test[1], n)) {
                 x += test[0];
                 y += test[1];
                 currMino.setRotation(n);
@@ -106,14 +108,14 @@ public class Game implements IGame {
 
     @Override
     public void softDrop(int n) {
-        for(int i = 0; matrix.checkMino(currMino, x, y + 1) && i < n; i++){
+        for (int i = 0; matrix.checkMino(currMino, x, y + 1) && i < n; i++) {
             y++;
         }
     }
 
     @Override
     public void hardDrop() {
-        while(matrix.checkMino(currMino, x, y + 1)){
+        while (matrix.checkMino(currMino, x, y + 1)) {
             y++;
         }
         placePiece();
@@ -121,10 +123,10 @@ public class Game implements IGame {
 
     @Override
     public void hold() {
-        if(held)
+        if (held)
             return;
         held = true;
-        if(heldMino.getType() == BlockType.X){
+        if (heldMino.getType() == BlockType.X) {
             heldMino = currMino;
             iterateMino();
             return;
@@ -143,57 +145,62 @@ public class Game implements IGame {
     public void stop() {
         throw new RuntimeException("stop not implemented yet");
     }
+
     /**
      * Tests whether a rotation is valid or not
      * <p>
-     *     Uses {@link Mino#getRotated(int)} to check if a certain rotation is valid
+     * Uses {@link Mino#getRotated(int)} to check if a certain rotation is valid
      * </p>
-     * @param n The rotation to check
+     *
+     * @param n     The rotation to check
      * @param testX The offset int the x to check
      * @param testY The offset int the y to check
      * @return True if a rotation is valid, false if it isnt
      **/
-    private boolean rotationTest(int testX, int testY, int n){
-        for(int[] block : currMino.getRotated(n)){
-            if(matrix.checkMino(currMino, x + block[0] + testX,y + block[1] + testY)){
+    private boolean rotationTest(int testX, int testY, int n) {
+        for (int[] block : currMino.getRotated(n)) {
+            if (matrix.checkMino(currMino, x + block[0] + testX, y + block[1] + testY)) {
                 return true;
             }
         }
         return false;
     }
+
     /**
      * Places the current piece onto the board
      * <p>
-     *     Then iterates to the next piece
+     * Then iterates to the next piece
      * </p>
      * Finally, resets {@link Game#x}, {@link Game#y} and {@link Game#held} to their starting values (3, 0, false)
      **/
-    private void placePiece(){
-        matrix.addMino(currMino,x,y);
+    private void placePiece() {
+        matrix.addMino(currMino, x, y);
         iterateMino();
         x = 3;
         y = 0;
         held = false;
     }
+
     /**
      * Iterates the mino, removing the first in of {@link Game#nextMinos}
      * <p>
-     *     If {@link Game#nextMinos} size is less than 8, calls {@link Game#generateNextMinos()}
+     * If {@link Game#nextMinos} size is less than 8, calls {@link Game#generateNextMinos()}
      * </p>
      **/
-    private void iterateMino(){
+    private void iterateMino() {
         currMino = nextMinos.remove();
-        if(nextMinos.size() < 8){
+        if (nextMinos.size() < 8) {
             generateNextMinos();
         }
     }
+
     /**
      * Generates a bag of 7 randomly ordered standard (I,J,O,L,S,T,Z) and adds them to {@link Game#nextMinos}
      **/
-    private void generateNextMinos(){
+    private void generateNextMinos() {
         List<Mino> tempMinos = new ArrayList<>();
-        for(int i = 0; i < 7; i++){
-            tempMinos.add(new Mino(i,0));
+        for (int i = 0; i < 7; i++) {
+            tempMinos.add(new Mino(i, 0));
         }
         Collections.shuffle(tempMinos);
         nextMinos.addAll(tempMinos);

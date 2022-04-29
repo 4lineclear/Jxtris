@@ -5,7 +5,7 @@ import java.util.HashMap;
 class Offsets {
     private final HashMap<Integer, int[][]> offsets, offsetsI, offsets180;
 
-    public Offsets(){
+    public Offsets() {
         offsets = new HashMap<>();
         offsetsI = new HashMap<>();
         offsets180 = new HashMap<>();
@@ -45,15 +45,16 @@ class Offsets {
         //Note: These keys should NOT be changed,
         //unless changing the system used to save
         //mino orientation
-        int[] keys =  {01,10,12,21,23,32,30,03};
-        int[] keys180 = {02,20,13,31};
+        int[] keys = {01, 10, 12, 21, 23, 32, 30, 03};
+        int[] keys180 = {02, 20, 13, 31};
         for (int i = 0; i < 8; i++) {
             offsets.put(keys[i], offsetsArr[i]);
             offsetsI.put(keys[i], offsetsIArr[i]);
-            if(i < 4) offsets180.put(keys180[i], offsets180Arr[i]);
+            if (i < 4) offsets180.put(keys180[i], offsets180Arr[i]);
         }
     }
     //TODO: Redo a ton of this shit, its all wack
+
     /**
      * Returns the offsets needed as an int array
      * <pre>
@@ -64,12 +65,13 @@ class Offsets {
      * Else, pull from {@link Offsets#offsets}
      * </pre>
      * {@code final int key = from * 10 + to}
+     *
      * @param type The type of Mino being checked
      * @param from The current rotation of the current mino
-     * @param to The rotation to be checked
+     * @param to   The rotation to be checked
      * @return An {@code int[][]}
      **/
-    public int[][] get(BlockType type, int from, int to){
+    public int[][] get(BlockType type, int from, int to) {
         final int key = from * 10 + to;
         return (from - to == 2 || from - to == -2 ?
                 offsets180 :
