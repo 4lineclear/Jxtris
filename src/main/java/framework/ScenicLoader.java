@@ -13,25 +13,27 @@ public class ScenicLoader {
     /**
      * The directory the FXML files to load should be in
      * <p>
-     *     Something like: /resources/fxml
+     * Something like: /resources/fxml
      * </p>
+     *
      * @see ScenicLoader#setFxmlFilePath(String)
      **/
     private static String FXML_FILE_PATH = "";
     /**
      * The class to load from, should be the driver class
      * <p>
-     *     URLs are loaded using {@link Class#getResource(String)},
-     *     so specifying the class to load from is important
+     * URLs are loaded using {@link Class#getResource(String)},
+     * so specifying the class to load from is important
      * </p>
+     *
      * @see ScenicLoader#setLoaderClass(Class)
      **/
     private static Class<?> LOADER_CLASS = ScenicController.class;
     /**
      * The name of the file saved
      * <p>
-     *     For example, if the FXML file is /resources/fxml/Home.fxml,
-     *     the filename would be "Home"
+     * For example, if the FXML file is /resources/fxml/Home.fxml,
+     * the filename would be "Home"
      * </p>
      **/
     public final String fileName;
@@ -47,8 +49,9 @@ public class ScenicLoader {
     /**
      * Create a {@link ScenicLoader} instance with a specified filename
      * <p>
-     *     Loads a scene, saves its controller and the associated filename
+     * Loads a scene, saves its controller and the associated filename
      * </p>
+     *
      * @param fileName The name of the FXML file to load
      **/
     public ScenicLoader(String fileName) throws IOException {
@@ -61,8 +64,9 @@ public class ScenicLoader {
     /**
      * Set the directory of the FXML files to load
      * <p>
-     *     Is used by {@link Class#getResource(String)} specified by {@link ScenicLoader#setLoaderClass(Class)}
+     * Is used by {@link Class#getResource(String)} specified by {@link ScenicLoader#setLoaderClass(Class)}
      * </p>
+     *
      * @param path Path to set
      **/
     public static void setFxmlFilePath(String path) {
@@ -72,15 +76,18 @@ public class ScenicLoader {
     /**
      * Set the class to load from
      * <p>
-     *     Is used to call {@link Class#getResource(String)}, using a directory and filename previously specified
+     * Is used to call {@link Class#getResource(String)}, using a directory and filename previously specified
      * </p>
+     *
      * @param loaderClass Class to load resources from
      **/
     public static void setLoaderClass(Class<?> loaderClass) {
         LOADER_CLASS = loaderClass;
     }
+
     /**
      * The previously loaded scene
+     *
      * @return Scene created when the {@link ScenicLoader} instance was created
      **/
     public Scene getScene() {

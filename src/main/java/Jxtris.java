@@ -9,12 +9,16 @@ import main.java.framework.ScenicStage;
 import java.io.IOException;
 
 /**
- * Driver class, contains the startup of JavaFX and the creation of any MVC components
+ * Driver class, contains the startup of JavaFX
+ * <p>
+ * Extends {@link ScenicApplication} instead of {@link Application}
+ * since this is a multi page app
+ * </p>
  **/
 public class Jxtris extends ScenicApplication {
 
     /**
-     * Driver function, launches {@link Jxtris#start(Stage)}
+     * Driver function, launches {@link Jxtris#start(Stage)} using {@link Application#launch(String...)}
      **/
     public static void main(String[] args) {
         launch(args);
@@ -23,9 +27,9 @@ public class Jxtris extends ScenicApplication {
     }
 
     /**
-     * Method given by JavaFX {@link Application}
+     * Method given by JavaFX {@link ScenicApplication}
      * <p>
-     * Also creates MVC components
+     * Drives JavaFX code
      * </p>
      *
      * @param stage The stage given by {@link ScenicStage}
