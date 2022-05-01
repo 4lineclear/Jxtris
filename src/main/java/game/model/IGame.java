@@ -1,4 +1,4 @@
-package main.java.game.gameModel;
+package main.java.game.model;
 
 /**
  * The template for the Jxtris game

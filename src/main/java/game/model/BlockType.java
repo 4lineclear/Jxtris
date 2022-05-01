@@ -1,4 +1,4 @@
-package main.java.game.gameModel;
+package main.java.game.model;
 
 /**
  * The block Jxtris is made up of

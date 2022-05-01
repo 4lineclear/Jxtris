@@ -1,4 +1,4 @@
-package main.java.game;
+package main.java.game.controller;
 
 public interface IGameController {
 }

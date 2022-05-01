@@ -6,7 +6,7 @@
 <GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity"
           minHeight="-Infinity" minWidth="-Infinity"
           prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/home.css"
-          xmlns="http://javafx.com/javafx/16" fx:controller="main.java.controllers.HomeController">
+          xmlns="http://javafx.com/javafx/16" fx:controller="main.java.controller.HomeController">
     <columnConstraints>
         <ColumnConstraints percentWidth="5.0"/>
         <ColumnConstraints percentWidth="40.0"/>

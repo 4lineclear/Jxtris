@@ -1,4 +1,4 @@
-package main.java.game.gameModel;
+package main.java.game.model;
 
 import java.util.HashMap;
 

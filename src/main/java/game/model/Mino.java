@@ -1,4 +1,4 @@
-package main.java.game.gameModel;
+package main.java.game.model;
 
 //TODO: Rename a lot of these variable names to be more descriptive
 
