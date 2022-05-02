@@ -146,6 +146,11 @@ public class Game implements IGame {
         throw new RuntimeException("stop not implemented yet");
     }
 
+    @Override
+    public void restart() {
+        throw new RuntimeException("restart not implemented yet");
+    }
+
     /**
      * Tests whether a rotation is valid or not
      * <p>

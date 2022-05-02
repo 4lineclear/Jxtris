@@ -22,8 +22,6 @@ public class Jxtris extends ScenicApplication {
      **/
     public static void main(String[] args) {
         launch(args);
-//        IGame game = new Game();
-//        System.exit(0);
     }
 
     /**
@@ -39,7 +37,7 @@ public class Jxtris extends ScenicApplication {
     public void scenicStart(ScenicStage stage) throws IOException {
         ScenicLoader.setFxmlFilePath("../resources/fxml/");
         ScenicLoader.setLoaderClass(this.getClass());
-        String[] pages = {"Home", "Gamemode", "Game"};
+        String[] pages = {"Home", "Gamemode", "Game", "Controls"};
         for (String page : pages) {
             ScenicLoader scenicLoader = new ScenicLoader(page);
             stage.addScene(scenicLoader);

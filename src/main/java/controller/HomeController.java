@@ -25,7 +25,7 @@ public class HomeController extends ScenicController {
 
     @FXML
     public void controlsClick() {
-
+        setScene("Controls");
     }
 
 //    private void initializeFontSizeManager() {

@@ -48,4 +48,9 @@ public interface IGame {
      **/
     void stop();
 
+    /**
+     * Restart the game
+     **/
+    void restart();
+
 }
