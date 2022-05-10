@@ -44,7 +44,7 @@ public class Jxtris extends ScenicApplication {
         }
         stage.setScene("Home");
         stage.setTitle("Jxtris");
-        stage.setResizable(false);
+//        stage.setResizable(false);
         stage.show();
     }
 }
