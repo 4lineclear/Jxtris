@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/controls.css"
+          xmlns="http://javafx.com/javafx/1" fx:controller="org.jxtris.controller.ControlsController">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="12.5"/>
+        <ColumnConstraints percentWidth="12.5"/>
+        <ColumnConstraints percentWidth="25.0"/>
+        <ColumnConstraints percentWidth="25.0"/>
+        <ColumnConstraints percentWidth="25.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="12.5"/>
+        <RowConstraints percentHeight="12.5"/>
+        <RowConstraints maxHeight="490.0" minHeight="10.0" percentHeight="75.0" prefHeight="488.0"/>
+        <RowConstraints/>
+    </rowConstraints>
+    <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+            onAction="#backClick" text="Back">
+        <font>
+            <Font size="37.0"/>
+        </font>
+        <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </GridPane.margin>
+    </Button>
+    <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="title" text="Controls"
+           GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowSpan="2">
+    </Label>
+    <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2"
+              GridPane.rowIndex="2">
+        <children>
+            <Label prefHeight="54.0" prefWidth="318.0" text="Move Left"/>
+            <Label layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="318.0" text="Move Right"/>
+            <TextField fx:id="moveLeft" editable="false" onKeyPressed="#moveLeftChanged" prefHeight="54.0"
+                       prefWidth="320.0"/>
+            <TextField fx:id="moveRight" editable="false" layoutX="328.0" layoutY="10.0"
+                       onKeyPressed="#moveRightChanged" prefHeight="54.0" prefWidth="320.0"/>
+            <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Rotate Left"/>
+            <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Rotate Right"/>
+            <TextField fx:id="rotateLeft" editable="false" layoutX="330.0" layoutY="334.0"
+                       onKeyPressed="#rotateLeftChanged" prefHeight="54.0" prefWidth="320.0"/>
+            <TextField fx:id="rotateRight" editable="false" layoutX="330.0" layoutY="334.0"
+                       onKeyPressed="#rotateRightChanged" prefHeight="54.0" prefWidth="320.0"/>
+            <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Soft Drop"/>
+            <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Hard Drop"/>
+            <TextField fx:id="softDrop" editable="false" layoutX="328.0" layoutY="10.0" onKeyPressed="#softDropChanged"
+                       prefHeight="54.0" prefWidth="320.0"/>
+            <TextField fx:id="hardDrop" editable="false" layoutX="328.0" layoutY="10.0" onKeyPressed="#hardDropChanged"
+                       prefHeight="54.0" prefWidth="320.0"/>
+            <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Rotate 180"/>
+            <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Hold"/>
+            <TextField fx:id="rotate180" editable="false" layoutX="330.0" layoutY="334.0"
+                       onKeyPressed="#rotate180Changed" prefHeight="54.0" prefWidth="320.0"/>
+            <TextField fx:id="hold" editable="false" layoutX="330.0" layoutY="334.0" onKeyPressed="#holdChanged"
+                       prefHeight="54.0" prefWidth="320.0"/>
+            <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Restart"/>
+            <Label layoutX="10.0" layoutY="118.0" prefHeight="54.0" prefWidth="318.0" text="Escape"/>
+            <TextField fx:id="restart" editable="false" layoutX="330.0" layoutY="334.0" onKeyPressed="#restartChanged"
+                       prefHeight="54.0" prefWidth="320.0"/>
+            <TextField fx:id="escape" editable="false" layoutX="330.0" layoutY="334.0" onKeyPressed="#escapeChanged"
+                       prefHeight="54.0" prefWidth="320.0"/>
+        </children>
+    </FlowPane>
+    <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+        <bottom>
+            <Button mnemonicParsing="false" onMouseClicked="#saveClick" prefHeight="54.0" prefWidth="320.0" text="Save"
+                    BorderPane.alignment="CENTER"/>
+        </bottom>
+    </BorderPane>
+    <BorderPane layoutX="970.0" layoutY="190.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2"
+                GridPane.rowIndex="2">
+        <bottom>
+            <Button mnemonicParsing="false" onMouseClicked="#defaultClick" prefHeight="54.0" prefWidth="320.0"
+                    text="Default" BorderPane.alignment="CENTER"/>
+        </bottom>
+    </BorderPane>
+</GridPane>
