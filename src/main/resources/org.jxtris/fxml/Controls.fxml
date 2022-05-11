@@ -4,7 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity"
+          minHeight="-Infinity"
           minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/controls.css"
           xmlns="http://javafx.com/javafx/16" fx:controller="org.jxtris.controller.ControlsController">
     <columnConstraints>
@@ -69,7 +70,8 @@
     </FlowPane>
     <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
         <bottom>
-            <Button mnemonicParsing="false" onMouseClicked="#saveClick" prefHeight="54.0" prefWidth="320.0" text="Save"
+            <Button fx:id="save" mnemonicParsing="false" onMouseClicked="#saveClick" prefHeight="54.0" prefWidth="320.0"
+                    text="Save"
                     BorderPane.alignment="CENTER"/>
         </bottom>
     </BorderPane>
