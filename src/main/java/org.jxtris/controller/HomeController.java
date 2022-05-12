@@ -15,12 +15,12 @@ public class HomeController extends ScenicController {
 
     @FXML
     public void helpClick() {
-
+        setScene("Help");
     }
 
     @FXML
     public void settingsClick() {
-
+        setScene("Settings");
     }
 
     @FXML

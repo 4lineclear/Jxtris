@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * The base game model of Jxtris
  **/
-public class Game implements IGame {
+public class Game {
     /**
      * The board the game is on
      **/
@@ -37,7 +37,6 @@ public class Game implements IGame {
      * The mino currently held
      *
      * @see Game#hold()
-     * @see IGame#hold()
      **/
     private Mino heldMino;
     /**
@@ -91,7 +90,6 @@ public class Game implements IGame {
      *
      * @param x The number of movements, and direction
      **/
-    @Override
     public void move(int x) {
         if (matrix.checkMino(currMino, this.x + x, this.y)) {
             this.x += x;
@@ -103,7 +101,6 @@ public class Game implements IGame {
      *
      * @param n The number of rotations, and direction
      **/
-    @Override
     public void rotate(int n) {
         if (currMino.getType() == BlockType.O) return;
         int[][] tests = offsets.get(currMino.getType(), currMino.getRotation(), n);
@@ -122,14 +119,12 @@ public class Game implements IGame {
      *
      * @param n The number of blocks to move down
      **/
-    @Override
     public void softDrop(int n) {
         for (int i = 0; matrix.checkMino(currMino, x, y + 1) && i < n; i++) {
             y++;
         }
     }
 
-    @Override
     public void hardDrop() {
         while (matrix.checkMino(currMino, x, y + 1)) {
             y++;
@@ -137,7 +132,6 @@ public class Game implements IGame {
         placePiece();
     }
 
-    @Override
     public void hold() {
         if (held)
             return;
@@ -152,17 +146,14 @@ public class Game implements IGame {
         heldMino = temp;
     }
 
-    @Override
     public void start() {
         throw new RuntimeException("start not implemented yet");
     }
 
-    @Override
     public void stop() {
         throw new RuntimeException("stop not implemented yet");
     }
 
-    @Override
     public void restart() {
         throw new RuntimeException("restart not implemented yet");
     }
