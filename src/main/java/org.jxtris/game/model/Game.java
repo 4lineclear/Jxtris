@@ -85,6 +85,12 @@ public class Game implements IGame {
 //        System.out.println(matrix);
     }
 
+
+    /**
+     * Move the current piece an n number of blocks
+     *
+     * @param x The number of movements, and direction
+     **/
     @Override
     public void move(int x) {
         if (matrix.checkMino(currMino, this.x + x, this.y)) {
@@ -92,6 +98,11 @@ public class Game implements IGame {
         }
     }
 
+    /**
+     * Rotate the current piece an n number of blocks
+     *
+     * @param n The number of rotations, and direction
+     **/
     @Override
     public void rotate(int n) {
         if (currMino.getType() == BlockType.O) return;
@@ -106,6 +117,11 @@ public class Game implements IGame {
         }
     }
 
+    /**
+     * Drop the current piece an n number of blocks
+     *
+     * @param n The number of blocks to move down
+     **/
     @Override
     public void softDrop(int n) {
         for (int i = 0; matrix.checkMino(currMino, x, y + 1) && i < n; i++) {

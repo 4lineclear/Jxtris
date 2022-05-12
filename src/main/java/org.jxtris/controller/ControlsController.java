@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import org.jxtris.framework.ScenicController;
-import org.jxtris.game.controller.Control;
+import org.jxtris.game.controls.Control;
 
 import java.io.File;
 import java.io.FileReader;

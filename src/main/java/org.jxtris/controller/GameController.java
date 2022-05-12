@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import org.jxtris.framework.ScenicController;
-import org.jxtris.game.controller.KeyPoller;
+import org.jxtris.game.controls.KeyPoller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
