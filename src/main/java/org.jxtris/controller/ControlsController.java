@@ -119,7 +119,7 @@ public class ControlsController extends ScenicController implements Initializabl
     }
 
     private void setupControls() throws IOException, URISyntaxException {
-        propertiesFile = new File(Objects.requireNonNull(this.getClass().getResource("/org.jxtris/properties/controls.properties")).toURI());
+        propertiesFile = new File(Objects.requireNonNull(this.getClass().getResource("/properties/controls.properties")).toURI());
         controlsProperties.load(new FileReader(propertiesFile));
         for (int i = 0; i < controlFields.length; i++)
             controlFields[i].setText(controlsProperties.getProperty(controls[i].toString()));

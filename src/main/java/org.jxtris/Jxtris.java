@@ -35,7 +35,7 @@ public class Jxtris extends ScenicApplication {
      **/
     @Override
     public void scenicStart(ScenicStage stage) throws IOException {
-        ScenicLoader.setFxmlFilePath("/org.jxtris/fxml/");
+        ScenicLoader.setFxmlFilePath("/fxml/");
         ScenicLoader.setLoaderClass(this.getClass());
         String[] pages = {"Home", "Gamemode", "Game", "Controls"};
         for (String page : pages) {
