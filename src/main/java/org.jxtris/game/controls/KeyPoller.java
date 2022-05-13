@@ -3,13 +3,13 @@ package org.jxtris.game.controls;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class KeyPoller {
-    private static final Set<KeyCode> keysDown = new HashSet<>();
+    private final Map<KeyCode, KeyProperty> keys = new HashMap<>();
     private static final KeyPoller instance = new KeyPoller();
-    private static Node node;
+    private Node node;
 
     private KeyPoller() {
     }
@@ -23,9 +23,14 @@ public class KeyPoller {
         removeKeyHandlers();
         setNode(node);
     }
+    public void setKeys(KeyCode[] keyCodes, KeyProperty[] keyProperties){
+        for (int i = 0; i < keyCodes.length; i++) {
+            this.keys.put(keyCodes[i], keyProperties[i]);
+        }
+    }
 
     private void clearKeys() {
-        keysDown.clear();
+        keys.clear();
     }
 
     private void removeKeyHandlers() {
@@ -36,16 +41,13 @@ public class KeyPoller {
     }
 
     private void setNode(Node node) {
-        KeyPoller.node = node;
-        KeyPoller.node.setOnKeyPressed(keyEvent -> {
-            keysDown.add(keyEvent.getCode());
+        this.node = node;
+        this.node.setOnKeyPressed(keyEvent -> {
+            keys.get(keyEvent.getCode()).throwKey();
         });
-        KeyPoller.node.setOnKeyReleased(keyEvent -> {
-            keysDown.remove(keyEvent.getCode());
+        this.node.setOnKeyReleased(keyEvent -> {
+            keys.get(keyEvent.getCode()).catchKey();
         });
     }
 
-    public boolean isDown(KeyCode keyCode) {
-        return keysDown.contains(keyCode);
-    }
 }

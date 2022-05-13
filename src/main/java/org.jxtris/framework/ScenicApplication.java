@@ -31,7 +31,7 @@ public abstract class ScenicApplication extends Application {
      **/
     @Override
     public void start(Stage stage) throws Exception {
-        scenicStart((ScenicStage) (stage = new ScenicStage()));
+        scenicStart(new ScenicStage());
     }
 
     /**

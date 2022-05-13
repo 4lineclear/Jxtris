@@ -20,8 +20,6 @@ public class GameController extends ScenicController{
     @FXML
     GridPane mainPanel;
     @FXML
-    AnchorPane canvasPanel;
-    @FXML
     Canvas canvas;
 
     @FXML

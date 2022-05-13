@@ -3,6 +3,8 @@ package org.jxtris.model;
 import javafx.beans.property.StringProperty;
 import javafx.scene.input.KeyCode;
 import org.jxtris.game.controls.Control;
+import org.jxtris.game.controls.KeyPoller;
+import org.jxtris.game.controls.KeyProperty;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -24,6 +26,25 @@ public class ControlsModel{
         for (int i = 0; i < boundControls.length; i++)
             controlsProperties.setProperty(controls[i].toString(), KeyCode.valueOf(boundControls[i].getValue()).toString());
         controlsProperties.store(new FileWriter(propertiesFile), "Game Controls");
+        KeyCode[] keyCodes = new KeyCode[boundControls.length];
+        for (int i = 0; i < keyCodes.length; i++) {
+            keyCodes[i] = KeyCode.valueOf(boundControls[i].getValue());
+        }
+        KeyProperty[] keyProperties = new KeyProperty[boundControls.length];
+        for (int i = 0; i < keyProperties.length; i++) {
+            keyProperties[i] = new KeyProperty() {
+                @Override
+                protected void throwKey() {
+
+                }
+
+                @Override
+                protected void catchKey() {
+
+                }
+            };
+        }
+        KeyPoller.getInstance().setKeys(keyCodes, keyProperties);
     }
     public void load(StringProperty[] boundControls){
         for (int i = 0; i < boundControls.length; i++)
