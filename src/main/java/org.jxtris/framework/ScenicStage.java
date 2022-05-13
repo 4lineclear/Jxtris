@@ -1,6 +1,7 @@
 package org.jxtris.framework;
 
 import javafx.stage.Stage;
+import org.jxtris.model.Model;
 
 import java.util.HashMap;
 
@@ -16,11 +17,14 @@ public class ScenicStage extends Stage {
      **/
     private final HashMap<String, ScenicLoader> scenes;
 
+    private final HashMap<String, Model<?>> models;
+
     /**
      * Creates a new instance with an empty {@link HashMap} of {@link ScenicLoader}
      **/
     public ScenicStage() {
         this.scenes = new HashMap<>();
+        this.models = new HashMap<>();
     }
 
     /**
@@ -58,5 +62,11 @@ public class ScenicStage extends Stage {
      **/
     public void setScene(String key) {
         this.setScene(this.scenes.get(key).getScene());
+    }
+    public void addModel(Model model){
+        this.models.put(model.getKey(), model);
+    }
+    public Model<?> getModel(String key){
+        return this.models.get(key);
     }
 }
