@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-public class ControlsController extends ScenicController implements Initializable {
+public class ControlsController extends ScenicController {
 
     @FXML
     TextField moveLeft, moveRight, rotateLeft, rotateRight, softDrop, hardDrop, rotate180, hold, restart, escape;
@@ -108,8 +108,8 @@ public class ControlsController extends ScenicController implements Initializabl
         save.setDisable(false);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @FXML
+    public void initialize() {
         this.controlFields = new TextField[]{moveLeft, moveRight, rotateLeft, rotateRight, softDrop, hardDrop, rotate180, hold, restart, escape};
         try {
             setupControls();

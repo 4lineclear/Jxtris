@@ -13,7 +13,7 @@ import org.jxtris.game.controls.KeyPoller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameController extends ScenicController implements Initializable {
+public class GameController extends ScenicController{
     Scene gamemode;
     @FXML
     Button playButton;
@@ -35,8 +35,8 @@ public class GameController extends ScenicController implements Initializable {
         playButton.setDisable(true);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
         KeyPoller.getInstance().pollNode(canvas);
     }
 }
