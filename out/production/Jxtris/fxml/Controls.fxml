@@ -4,8 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity"
-          minHeight="-Infinity"
+<GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
           minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/controls.css"
           xmlns="http://javafx.com/javafx/16" fx:controller="org.jxtris.controller.ControlsController">
     <columnConstraints>
@@ -18,14 +17,11 @@
     <rowConstraints>
         <RowConstraints percentHeight="12.5"/>
         <RowConstraints percentHeight="12.5"/>
-        <RowConstraints percentHeight="75.0" />
+        <RowConstraints percentHeight="75.0"/>
         <RowConstraints/>
     </rowConstraints>
     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-            onAction="#backClick" text="Back">
-        <font>
-            <Font size="37.0"/>
-        </font>
+            onAction="#backClick" styleClass="back-button" text="Back">
         <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
         </GridPane.margin>
@@ -68,18 +64,8 @@
                        prefHeight="54.0" prefWidth="320.0"/>
         </children>
     </FlowPane>
-    <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
-        <bottom>
-            <Button fx:id="save" mnemonicParsing="false" onMouseClicked="#saveClick" prefHeight="54.0" prefWidth="320.0"
-                    text="Save"
-                    BorderPane.alignment="CENTER"/>
-        </bottom>
-    </BorderPane>
-    <BorderPane layoutX="970.0" layoutY="190.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2"
-                GridPane.rowIndex="2">
-        <bottom>
-            <Button mnemonicParsing="false" onMouseClicked="#defaultClick" prefHeight="54.0" prefWidth="320.0"
-                    text="Default" BorderPane.alignment="CENTER"/>
-        </bottom>
-    </BorderPane>
+    <Button fx:id="save" disable="true" mnemonicParsing="false" onMouseClicked="#saveClick" prefHeight="54.0"
+            prefWidth="320.0" text="Save" GridPane.valignment="BOTTOM" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+    <Button mnemonicParsing="false" onMouseClicked="#defaultClick" prefHeight="54.0" prefWidth="320.0" text="Default"
+            GridPane.valignment="BOTTOM" GridPane.rowIndex="2" GridPane.columnSpan="2"/>
 </GridPane>

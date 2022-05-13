@@ -8,8 +8,8 @@ import java.util.Set;
 
 public class KeyPoller {
     private static final Set<KeyCode> keysDown = new HashSet<>();
-    private static Node node;
     private static final KeyPoller instance = new KeyPoller();
+    private static Node node;
 
     private KeyPoller() {
     }

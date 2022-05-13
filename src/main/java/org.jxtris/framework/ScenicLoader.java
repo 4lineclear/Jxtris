@@ -30,6 +30,15 @@ public class ScenicLoader {
      **/
     private static Class<?> LOADER_CLASS = ScenicController.class;
     /**
+     * The URl of a CSS stylesheet to apply to each file
+     * <p>
+     * Null by default
+     * </p>
+     *
+     * @see ScenicLoader#setSharedStylesheet(String)
+     **/
+    private static String SHARED_STYLESHEET = null;
+    /**
      * The name of the file saved
      * <p>
      * For example, if the FXML file is /resources/fxml/Home.fxml,
@@ -59,6 +68,7 @@ public class ScenicLoader {
         this.scene = new Scene(loader.load());
         this.controller = loader.getController();
         this.fileName = fileName;
+        if (SHARED_STYLESHEET != null) scene.getStylesheets().add(SHARED_STYLESHEET);
     }
 
     /**
@@ -83,6 +93,10 @@ public class ScenicLoader {
      **/
     public static void setLoaderClass(Class<?> loaderClass) {
         LOADER_CLASS = loaderClass;
+    }
+
+    public static void setSharedStylesheet(String sharedStylesheet) {
+        SHARED_STYLESHEET = Objects.requireNonNull(LOADER_CLASS.getResource(sharedStylesheet)).toExternalForm();
     }
 
     /**

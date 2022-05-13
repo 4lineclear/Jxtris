@@ -37,7 +37,8 @@ public class Jxtris extends ScenicApplication {
     public void scenicStart(ScenicStage stage) throws IOException {
         ScenicLoader.setFxmlFilePath("/fxml/");
         ScenicLoader.setLoaderClass(this.getClass());
-        String[] pages = {"Home", "Gamemode", "Game", "Controls","Help","Settings"};
+        ScenicLoader.setSharedStylesheet("/css/shared.css");
+        String[] pages = {"Home", "Gamemode", "Game", "Controls", "Help", "Settings"};
         for (String page : pages) {
             ScenicLoader scenicLoader = new ScenicLoader(page);
             stage.addScene(scenicLoader);

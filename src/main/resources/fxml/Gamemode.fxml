@@ -26,10 +26,7 @@
         <RowConstraints percentHeight="7.5"/>
     </rowConstraints>
     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-            onAction="#backClick" text="Back">
-        <font>
-            <Font size="37.0"/>
-        </font>
+            onAction="#backClick" styleClass="back-button" text="Back">
         <GridPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
         </GridPane.margin>

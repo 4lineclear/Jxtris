@@ -19,7 +19,7 @@
         <RowConstraints percentHeight="25.0"/>
         <RowConstraints percentHeight="10.0"/>
     </rowConstraints>
-    <Label fx:id="title" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text=" Jxtris"
+    <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text=" Jxtris"
            GridPane.columnIndex="1" GridPane.columnSpan="2">
         <padding>
             <Insets left="10.0"/>
