@@ -1,4 +1,4 @@
-package org.jxtris.game.model;
+package org.jxtris.game.base;
 
 //TODO: Rename a lot of these variable names to be more descriptive
 

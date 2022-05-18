@@ -4,7 +4,6 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.input.KeyCode;
 import org.jxtris.game.controls.Control;
 import org.jxtris.game.controls.KeyPoller;
-import org.jxtris.game.controls.KeyProperty;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -23,32 +22,20 @@ public class ControlsModel{
         controlsProperties.load(new FileReader(propertiesFile));
     }
     public void save() throws IOException {
-        for (int i = 0; i < boundControls.length; i++)
+        for (int i = 0; i < boundControls.length; i++) {
             controlsProperties.setProperty(controls[i].toString(), KeyCode.valueOf(boundControls[i].getValue()).toString());
+            controls[i].keyCode = KeyCode.getKeyCode(boundControls[i].getValue());
+            KeyPoller.getInstance().setKey(controls[i]);
+        }
         controlsProperties.store(new FileWriter(propertiesFile), "Game Controls");
-        KeyCode[] keyCodes = new KeyCode[boundControls.length];
-        for (int i = 0; i < keyCodes.length; i++) {
-            keyCodes[i] = KeyCode.valueOf(boundControls[i].getValue());
-        }
-        KeyProperty[] keyProperties = new KeyProperty[boundControls.length];
-        for (int i = 0; i < keyProperties.length; i++) {
-            keyProperties[i] = new KeyProperty() {
-                @Override
-                protected void throwKey() {
 
-                }
-
-                @Override
-                protected void catchKey() {
-
-                }
-            };
-        }
-        KeyPoller.getInstance().setKeys(keyCodes, keyProperties);
     }
     public void load(StringProperty[] boundControls){
-        for (int i = 0; i < boundControls.length; i++)
+        for (int i = 0; i < boundControls.length; i++) {
             boundControls[i].setValue(controlsProperties.getProperty(controls[i].toString()));
+            controls[i].keyCode = KeyCode.getKeyCode(boundControls[i].getValue());
+            KeyPoller.getInstance().addKey(controls[i]);
+        }
         this.boundControls = boundControls;
     }
     public void setDefault() throws IOException {

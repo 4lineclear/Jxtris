@@ -1,4 +1,4 @@
-package org.jxtris.game.model;
+package org.jxtris.game.base;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

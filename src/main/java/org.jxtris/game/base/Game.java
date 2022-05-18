@@ -1,4 +1,6 @@
-package org.jxtris.game.model;
+package org.jxtris.game.base;
+
+import org.jxtris.game.controls.Control;
 
 import java.util.*;
 
@@ -84,6 +86,39 @@ public class Game {
 //        System.out.println(matrix);
     }
 
+    public void throwInput(Control control) {
+        System.out.println(control);
+        if (control == null)
+            return;
+
+        switch (control) {
+            case MOVE_LEFT -> move(-1);
+
+            case MOVE_RIGHT -> move(1);
+
+            case ROTATE_LEFT -> rotate(3);
+
+            case ROTATE_RIGHT -> rotate(1);
+
+            case SOFT_DROP -> softDrop(1);
+
+            case HARD_DROP -> hardDrop();
+
+            case ROTATE_180 -> rotate(2);
+
+            case HOLD -> hold();
+
+            case RESTART -> restart();
+
+            case ESCAPE -> stop();
+
+            default -> throw new IllegalStateException("Unexpected value: " + control);
+        }
+    }
+    public void catchInput(Control control){
+
+    }
+
 
     /**
      * Move the current piece an n number of blocks
@@ -104,6 +139,7 @@ public class Game {
     public void rotate(int n) {
         if (currMino.getType() == BlockType.O) return;
         int[][] tests = offsets.get(currMino.getType(), currMino.getRotation(), n);
+        System.out.println(currMino.getRotation() + " " + n);
         for (int[] test : tests) {
             if (rotationTest(test[0], test[1], n)) {
                 x += test[0];
@@ -216,5 +252,8 @@ public class Game {
         }
         Collections.shuffle(tempMinos);
         nextMinos.addAll(tempMinos);
+    }
+    private int iterateRotation(int rotation, int change){
+        return 0;
     }
 }

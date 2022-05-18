@@ -2,14 +2,16 @@ package org.jxtris.game.controls;
 
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
+import org.jxtris.game.base.Game;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class KeyPoller {
-    private final Map<KeyCode, KeyProperty> keys = new HashMap<>();
+    private final Map<KeyCode, Control> keys = new HashMap<>();
     private static final KeyPoller instance = new KeyPoller();
     private Node node;
+    private Game game;
 
     private KeyPoller() {
     }
@@ -23,10 +25,15 @@ public class KeyPoller {
         removeKeyHandlers();
         setNode(node);
     }
-    public void setKeys(KeyCode[] keyCodes, KeyProperty[] keyProperties){
-        for (int i = 0; i < keyCodes.length; i++) {
-            this.keys.put(keyCodes[i], keyProperties[i]);
-        }
+    public void pollGame(Game game){
+        this.game = game;
+    }
+    public void addKey(Control control){
+        this.keys.put(control.keyCode, control);
+    }
+    public void setKey(Control control){
+        this.keys.remove(control.keyCode);
+        addKey(control);
     }
 
     private void clearKeys() {
@@ -43,10 +50,10 @@ public class KeyPoller {
     private void setNode(Node node) {
         this.node = node;
         this.node.setOnKeyPressed(keyEvent -> {
-            keys.get(keyEvent.getCode()).throwKey();
+            game.throwInput(keys.get(keyEvent.getCode()));
         });
         this.node.setOnKeyReleased(keyEvent -> {
-            keys.get(keyEvent.getCode()).catchKey();
+            game.catchInput(keys.get(keyEvent.getCode()));
         });
     }
 
