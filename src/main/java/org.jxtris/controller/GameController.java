@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import org.jxtris.framework.ScenicController;
-import org.jxtris.game.base.Game;
 import org.jxtris.game.controls.KeyPoller;
 
 import java.net.URL;
@@ -36,8 +35,6 @@ public class GameController extends ScenicController{
 
     @FXML
     public void initialize() {
-        Game game = new Game();
-        KeyPoller.getInstance().pollNode(canvas);
-        KeyPoller.getInstance().pollGame(game);
+
     }
 }

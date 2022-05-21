@@ -1,123 +1,96 @@
 package org.jxtris.game.base;
 
-//TODO: Rename a lot of these variable names to be more descriptive
+import java.util.Iterator;
 
-/**
- * The piece that the user can control
- * <p> Made up of 4 cartesian coordinates </p>
- **/
-class Mino {
-    /**
-     * Contains all pieces and their orientations
-     * <pre>
-     * {@code allMinos} - all orientations of all minos
-     * {@code allMinos[a]} - all orientations of a single mino
-     * {@code allMinos[a][b]} - a single orientation of a mino
-     * {@code allMinos[a][b][c]} - the cartesian coordinates of a single block
-     * {@code allMinos[a][b][c][d]} - the x[0] or y[1] coordinate of a block
-     * </pre>
-     * Minos, in order are: I,J,O,L,S,T,Z
-     **/
-    private static final int[][][][] allMinos = {
-            {
-                    {{0, 1}, {1, 1}, {2, 1}, {3, 1}},
-                    {{1, 0}, {1, 1}, {1, 2}, {1, 3}},
-                    {{0, 2}, {1, 2}, {2, 2}, {3, 2}},
-                    {{2, 0}, {2, 1}, {2, 2}, {2, 3}}
-            },
-            {
-                    {{0, 1}, {1, 1}, {2, 1}, {0, 0}},
-                    {{1, 0}, {1, 1}, {1, 2}, {0, 2}},
-                    {{0, 1}, {1, 1}, {2, 1}, {2, 2}},
-                    {{1, 0}, {1, 1}, {1, 2}, {2, 0}}
-            },
-            {
-                    {{1, 0}, {1, 1}, {2, 0}, {2, 1}},
-                    {{1, 0}, {1, 1}, {2, 0}, {2, 1}},
-                    {{1, 0}, {1, 1}, {2, 0}, {2, 1}},
-                    {{1, 0}, {1, 1}, {2, 0}, {2, 1}}
-            },
-            {
-                    {{0, 1}, {1, 1}, {2, 1}, {2, 0}},
-                    {{1, 0}, {1, 1}, {1, 2}, {0, 0}},
-                    {{0, 1}, {1, 1}, {2, 1}, {0, 2}},
-                    {{1, 0}, {1, 1}, {1, 2}, {2, 2}}
-            },
-            {
-                    {{1, 0}, {2, 0}, {0, 1}, {1, 1}},
-                    {{0, 0}, {0, 1}, {1, 1}, {1, 2}},
-                    {{1, 1}, {2, 1}, {0, 2}, {1, 2}},
-                    {{1, 0}, {1, 1}, {2, 1}, {2, 2}}
-            },
-            {
-                    {{1, 0}, {0, 1}, {1, 1}, {2, 1}},
-                    {{1, 0}, {0, 1}, {1, 1}, {1, 2}},
-                    {{0, 1}, {1, 1}, {2, 1}, {1, 2}},
-                    {{1, 0}, {1, 1}, {2, 1}, {1, 2}}
-            },
-            {
-                    {{0, 0}, {1, 0}, {1, 1}, {2, 1}},
-                    {{1, 0}, {0, 1}, {1, 1}, {0, 2}},
-                    {{0, 1}, {1, 1}, {1, 2}, {2, 2}},
-                    {{2, 0}, {1, 1}, {2, 1}, {1, 2}}
-            }
-    };
-
-    private static final BlockType[] allBlocks = BlockType.values();
-
-    private BlockType type;
-    private int rotation;
-
-    /**
-     * Initialize a {@link Mino} using a given number for the {@link Mino#type} and {@link Mino#rotation}
-     * <pre>Given a number n, {@link Mino#type} can be:
-     * 0 - {@link BlockType#I}
-     * 1 - {@link BlockType#J}
-     * 2 - {@link BlockType#O}
-     * 3 - {@link BlockType#L}
-     * 4 - {@link BlockType#S}
-     * 5 - {@link BlockType#T}
-     * 6 - {@link BlockType#Z} </pre>
-     **/
-    public Mino(int mino, int rotation) {
-        this.type = allBlocks[mino];
-        this.rotation = rotation;
-    }
-
-    public Mino(BlockType mino, int rotation) {
-        this.type = mino;
-        this.rotation = rotation;
-    }
-
-    public int[][] getMinoCC() {
-        return allMinos[type.ordinal()][rotation];
-    }
-
-    public int[][] getRotated(int rotation) {
-        return allMinos[type.ordinal()][rotation];
-    }
-
-    public BlockType getType() {
-        return this.type;
-    }
-
-    public void setMino(int mino) {
-        this.type = allBlocks[mino];
-    }
-
-    public int getRotation() {
-        return rotation;
-    }
-
-    public void setRotation(int rotation) {
-        this.rotation = rotation;
-    }
+public record Mino(BlockType type, Rotation rotation) implements Iterable<Block> {
 
     @Override
-    public String toString() {
-        return "Mino{" +
-                "type=" + type +
-                ", rotation=" + rotation +
-                '}';
+    public Iterator<Block> iterator() {
+        return new MinoIterator();
+    }
+
+    private final class MinoIterator implements Iterator<Block> {
+
+        private int currentIndex = 0;
+
+        private final Block[] blocks = MinoRepo.getMino(type,rotation);
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < blocks.length && blocks[currentIndex] != null;
+        }
+
+        @Override
+        public Block next() {
+            return blocks[currentIndex++];
+        }
+
+    }
+    private static final class MinoRepo {
+        private static final Block[][][] allMinos = {
+                {
+                        {new Block(0, 1, BlockType.I), new Block(1, 1, BlockType.I), new Block(2, 1, BlockType.I), new Block(3, 1, BlockType.I)},
+                        {new Block(1, 0, BlockType.I), new Block(1, 1, BlockType.I), new Block(1, 2, BlockType.I), new Block(1, 3, BlockType.I)},
+                        {new Block(0, 2, BlockType.I), new Block(1, 2, BlockType.I), new Block(2, 2, BlockType.I), new Block(3, 2, BlockType.I)},
+                        {new Block(2, 0, BlockType.I), new Block(2, 1, BlockType.I), new Block(2, 2, BlockType.I), new Block(2, 3, BlockType.I)}
+                },
+                {
+                        {new Block(0, 1, BlockType.J), new Block(1, 1, BlockType.J), new Block(2, 1, BlockType.J), new Block(0, 0, BlockType.J)},
+                        {new Block(1, 0, BlockType.J), new Block(1, 1, BlockType.J), new Block(1, 2, BlockType.J), new Block(0, 2, BlockType.J)},
+                        {new Block(0, 1, BlockType.J), new Block(1, 1, BlockType.J), new Block(2, 1, BlockType.J), new Block(2, 2, BlockType.J)},
+                        {new Block(1, 0, BlockType.J), new Block(1, 1, BlockType.J), new Block(1, 2, BlockType.J), new Block(2, 0, BlockType.J)}
+                },
+                {
+                        {new Block(1, 0, BlockType.O), new Block(1, 1, BlockType.O), new Block(2, 0, BlockType.O), new Block(2, 1, BlockType.O)},
+                        {new Block(1, 0, BlockType.O), new Block(1, 1, BlockType.O), new Block(2, 0, BlockType.O), new Block(2, 1, BlockType.O)},
+                        {new Block(1, 0, BlockType.O), new Block(1, 1, BlockType.O), new Block(2, 0, BlockType.O), new Block(2, 1, BlockType.O)},
+                        {new Block(1, 0, BlockType.O), new Block(1, 1, BlockType.O), new Block(2, 0, BlockType.O), new Block(2, 1, BlockType.O)}
+                },
+                {
+                        {new Block(0, 1, BlockType.L), new Block(1, 1, BlockType.L), new Block(2, 1, BlockType.L), new Block(2, 0, BlockType.L)},
+                        {new Block(1, 0, BlockType.L), new Block(1, 1, BlockType.L), new Block(1, 2, BlockType.L), new Block(0, 0, BlockType.L)},
+                        {new Block(0, 1, BlockType.L), new Block(1, 1, BlockType.L), new Block(2, 1, BlockType.L), new Block(0, 2, BlockType.L)},
+                        {new Block(1, 0, BlockType.L), new Block(1, 1, BlockType.L), new Block(1, 2, BlockType.L), new Block(2, 2, BlockType.L)}
+                },
+                {
+                        {new Block(1, 0, BlockType.S), new Block(2, 0, BlockType.S), new Block(0, 1, BlockType.S), new Block(1, 1, BlockType.S)},
+                        {new Block(0, 0, BlockType.S), new Block(0, 1, BlockType.S), new Block(1, 1, BlockType.S), new Block(1, 2, BlockType.S)},
+                        {new Block(1, 1, BlockType.S), new Block(2, 1, BlockType.S), new Block(0, 2, BlockType.S), new Block(1, 2, BlockType.S)},
+                        {new Block(1, 0, BlockType.S), new Block(1, 1, BlockType.S), new Block(2, 1, BlockType.S), new Block(2, 2, BlockType.S)}
+                },
+                {
+                        {new Block(1, 0, BlockType.T), new Block(0, 1, BlockType.T), new Block(1, 1, BlockType.T), new Block(2, 1, BlockType.T)},
+                        {new Block(1, 0, BlockType.T), new Block(0, 1, BlockType.T), new Block(1, 1, BlockType.T), new Block(1, 2, BlockType.T)},
+                        {new Block(0, 1, BlockType.T), new Block(1, 1, BlockType.T), new Block(2, 1, BlockType.T), new Block(1, 2, BlockType.T)},
+                        {new Block(1, 0, BlockType.T), new Block(1, 1, BlockType.T), new Block(2, 1, BlockType.T), new Block(1, 2, BlockType.T)}
+                },
+                {
+                        {new Block(0, 0, BlockType.Z), new Block(1, 0, BlockType.Z), new Block(1, 1, BlockType.Z), new Block(2, 1, BlockType.Z)},
+                        {new Block(1, 0, BlockType.Z), new Block(0, 1, BlockType.Z), new Block(1, 1, BlockType.Z), new Block(0, 2, BlockType.Z)},
+                        {new Block(0, 1, BlockType.Z), new Block(1, 1, BlockType.Z), new Block(1, 2, BlockType.Z), new Block(2, 2, BlockType.Z)},
+                        {new Block(2, 0, BlockType.Z), new Block(1, 1, BlockType.Z), new Block(2, 1, BlockType.Z), new Block(1, 2, BlockType.Z)}
+                }
+        };
+
+        public static Block[] getMino(BlockType type, Rotation rotation) {
+            return allMinos
+                    [switch (type) {
+                case I -> 0;
+                case J -> 1;
+                case O -> 2;
+                case L -> 3;
+                case S -> 4;
+                case T -> 5;
+                case Z -> 6;
+                case X -> throw new IllegalStateException();
+            }]
+                    [switch (rotation) {
+                case UP -> 0;
+                case RIGHT -> 1;
+                case LEFT -> 2;
+                case DOWN -> 3;
+            }];
+
+        }
     }
 }
