@@ -2,8 +2,18 @@ package org.jxtris.game.base;
 
 import java.util.Iterator;
 
-public record Mino(BlockType type, Rotation rotation) implements Iterable<Block> {
+public class Mino implements Iterable<Block> {
+    private final BlockType type;
+    private Rotation rotation;
 
+    public Mino(BlockType type, Block pos) {
+        this.type = type;
+        this.rotation = Rotation.DOUBLE;
+    }
+
+    public void rotate(){
+
+    }
     @Override
     public Iterator<Block> iterator() {
         return new MinoIterator();
@@ -85,10 +95,10 @@ public record Mino(BlockType type, Rotation rotation) implements Iterable<Block>
                 case X -> throw new IllegalStateException();
             }]
                     [switch (rotation) {
-                case UP -> 0;
+                case START -> 0;
                 case RIGHT -> 1;
                 case LEFT -> 2;
-                case DOWN -> 3;
+                case DOUBLE -> 3;
             }];
 
         }

@@ -1,8 +1,9 @@
 package org.jxtris.game.base;
 
 public enum Rotation {
-    UP,
+    START,
     RIGHT,
-    LEFT,
-    DOWN
+    DOUBLE,
+    LEFT
+
 }
