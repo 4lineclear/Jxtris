@@ -1,4 +1,4 @@
-package org.jxtris.game.controls;
+package org.jxtris.game.base.controls;
 
 import javafx.scene.input.KeyCode;
 

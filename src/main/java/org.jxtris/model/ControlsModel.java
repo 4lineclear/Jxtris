@@ -2,8 +2,8 @@ package org.jxtris.model;
 
 import javafx.beans.property.StringProperty;
 import javafx.scene.input.KeyCode;
-import org.jxtris.game.controls.Control;
-import org.jxtris.game.controls.KeyPoller;
+import org.jxtris.game.base.controls.Control;
+import org.jxtris.game.base.controls.KeyPoller;
 
 import java.io.*;
 import java.net.URISyntaxException;
