@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
           minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/controls.css"
-          xmlns="http://javafx.com/javafx/16" fx:controller="jxtris.org.jxtris.controller.ControlsController">
+          xmlns="http://javafx.com/javafx/16" fx:controller="jxtris.controller.ControlsController">
     <columnConstraints>
         <ColumnConstraints percentWidth="12.5"/>
         <ColumnConstraints percentWidth="12.5"/>

@@ -33,6 +33,9 @@ public abstract class ScenicApplication extends Application {
     public void start(Stage stage) throws Exception {
         scenicStart(new ScenicStage());
     }
+    public void autoStart(String fxmlFilePath, String sharedStyleSheet){
+        
+    }
 
     /**
      * Entrypoint using a {@link ScenicStage}
