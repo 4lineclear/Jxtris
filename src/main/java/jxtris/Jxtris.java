@@ -7,6 +7,7 @@ import jxtris.framework.ScenicLoader;
 import jxtris.framework.ScenicStage;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 /**
  * Driver class, contains the startup of JavaFX
@@ -20,9 +21,10 @@ public class Jxtris extends ScenicApplication {
     /**
      * Driver function, launches {@link Jxtris#start(Stage)} using {@link Application#launch(String...)}
      **/
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MalformedURLException, ClassNotFoundException {
         launch(args);
     }
+
 
     /**
      * Method given by JavaFX {@link ScenicApplication}
