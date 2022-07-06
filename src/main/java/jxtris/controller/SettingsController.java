@@ -1,8 +1,8 @@
 package jxtris.controller;
 
-import jxtris.framework.ScenicController;
+import jxtris.pagicFX.PagicController;
 
-public class SettingsController extends ScenicController {
+public class SettingsController extends PagicController {
     public void backClick() {
         setScene("Home");
     }

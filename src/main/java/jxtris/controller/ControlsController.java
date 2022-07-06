@@ -8,12 +8,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import jxtris.model.ControlsModel;
-import jxtris.framework.ScenicController;
+import jxtris.pagicFX.PagicController;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class ControlsController extends ScenicController {
+public class ControlsController extends PagicController {
 
     @FXML
     TextField moveLeft, moveRight, rotateLeft, rotateRight, softDrop, hardDrop, rotate180, hold, restart, escape;

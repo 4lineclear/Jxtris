@@ -2,9 +2,9 @@ package jxtris.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
-import jxtris.framework.ScenicController;
+import jxtris.pagicFX.PagicController;
 
-public class HomeController extends ScenicController {
+public class HomeController extends PagicController {
     @FXML
     GridPane mainPanel;
 

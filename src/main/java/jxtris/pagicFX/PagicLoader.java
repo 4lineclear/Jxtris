@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import java.net.URL;
 
+import static jxtris.pagicFX.URLService.getURL;
+
 /**
  * An extended {@link FXMLLoader} to make its use more convenient
  * <p>
@@ -14,40 +16,16 @@ import java.net.URL;
  * By default, FXML files should be placed within "../resources/fxml/"
  **/
 public class PagicLoader extends FXMLLoader {
-    private static String FXML_FILE_PATH = "/fxml/";
+    public static String FXML_FILE_PATH = "/fxml/";
 
     /**
      * Create a new Loader instance with a given location
      * <p>
-     * Loads {@link URL} using {@link PagicLoader#getURL(String)}
+     * Loads {@link URL} using {@link URLService#getURL(String)}
      * </p>
      **/
-    public PagicLoader(String location) {
-        super(getURL(location));
-    }
-
-    /**
-     * Creates {@link URL} using {@link Class#getResource(String)} from the caller class
-     *
-     * @param name The name of the {@link URL} to load
-     **/
-    private static URL getURL(String name) {
-        StackWalker stackWalker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
-        Class<?> callerClass = stackWalker.getCallerClass();
-        return callerClass.getResource(FXML_FILE_PATH + name + ".fxml");
-    }
-
-    /**
-     * Sets the path to get to FXML files
-     * <p>
-     * By default, it is set to "/fxml/"
-     * </p>
-     * This is used when calling {@link PagicLoader#load(String)}
-     *
-     * @param path The new path
-     **/
-    public static void setFilePath(String path) {
-        FXML_FILE_PATH = path;
+    public PagicLoader(String name) {
+        super(getURL(FXML_FILE_PATH + name + ".fxml"));
     }
 
     /**
@@ -64,6 +42,6 @@ public class PagicLoader extends FXMLLoader {
      * @throws IOException If an error occurs while loading
      **/
     public static <T> T load(String name) throws IOException {
-        return FXMLLoader.load(getURL(name));
+        return FXMLLoader.load(getURL(FXML_FILE_PATH + name + ".fxml"));
     }
 }

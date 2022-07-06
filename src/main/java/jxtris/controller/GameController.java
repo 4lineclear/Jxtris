@@ -8,13 +8,13 @@ import javafx.scene.layout.GridPane;
 import jxtris.game.Game;
 import jxtris.game.base.controls.KeyPoller;
 import jxtris.game.gamemode.GenericGame;
-import jxtris.framework.ScenicController;
 import jxtris.game.base.glue.GameBus;
 import jxtris.game.base.rendering.RenderBus;
 import jxtris.game.base.rendering.Renderer;
 import jxtris.game.base.state.BaseGame;
+import jxtris.pagicFX.PagicController;
 
-public class GameController extends ScenicController{
+public class GameController extends PagicController {
     Scene gamemode;
     @FXML
     Button playButton;
