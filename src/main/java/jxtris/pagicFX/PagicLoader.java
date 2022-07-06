@@ -5,6 +5,14 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * An extended {@link FXMLLoader} to make its use more convenient
+ * <p>
+ *     In its use, only need to specify the filenames,
+ *     not the entire paths as long as the files are placed correctly
+ * </p>
+ * By default, FXML files should be placed within "../resources/fxml/"
+ **/
 public class PagicLoader extends FXMLLoader {
     private static String FXML_FILE_PATH = "/fxml/";
 
