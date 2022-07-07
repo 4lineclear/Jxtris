@@ -1,12 +1,8 @@
 package jxtris.game.base.state;
 
 public class Mino {
-    private final static MinoRepo minoRepo = new MinoRepo();
-
-}
-
-class MinoRepo{
-
+    public Block type;
+    public Rotation rotation;
     /**
      * Contains all pieces and their orientations
      * <pre>
@@ -62,7 +58,7 @@ class MinoRepo{
                     {{2, 0}, {1, 1}, {2, 1}, {1, 2}}
             }
     };
-    public int[][] getBlock(Block block, Rotation rotation){
-        return this.allMinos[block.index][rotation.index];
+    public int[][] getBlock(){
+        return this.allMinos[type.index][rotation.index];
     }
 }
