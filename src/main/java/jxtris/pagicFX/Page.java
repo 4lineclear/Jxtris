@@ -33,7 +33,7 @@ public class Page {
         scene.getStylesheets().add(STYLE_SHEET);
     }
 
-
+    //TODO: Entirely change stylesheet system
     private static String getStyleSheet() {
         String stylesheet = getURL("/css/shared.css").toExternalForm();
         if (stylesheet == null)

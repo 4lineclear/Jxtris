@@ -31,7 +31,21 @@ public class Jxtris extends AutoApplication {
         Mino mino = new Mino();
         mino.type = Block.I;
         mino.rotation = Rotation.Start;
-        matrix.addMino(mino, 4, 4);
+        matrix.addMino(mino, 1, 22);
+        matrix.addMino(mino, 6, 22);
+
+        matrix.addMino(mino, 2, 21);
+        matrix.addMino(mino, 6, 21);
+
+        matrix.addMino(mino, 2, 20);
+        matrix.addMino(mino, 6, 20);
+
+        matrix.addMino(mino, 1, 19);
+        matrix.addMino(mino, 6, 19);
+        mino.rotation = Rotation.Left;
+        matrix.addMino(mino,0,20);
+//        mino.type = Block.O;
+//        matrix.addMino(mino, 0, 22);
         matrix.print();
     }
 
