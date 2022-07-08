@@ -2,10 +2,7 @@ package jxtris;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import jxtris.game.base.state.Block;
-import jxtris.game.base.state.Matrix;
-import jxtris.game.base.state.Mino;
-import jxtris.game.base.state.Rotation;
+import jxtris.game.base.state.*;
 import jxtris.pagicFX.AutoApplication;
 import jxtris.pagicFX.Page;
 import jxtris.pagicFX.PagicApplication;
@@ -26,27 +23,10 @@ public class Jxtris extends AutoApplication {
      * Driver function, launches {@link Jxtris#start(Stage)} using {@link Application#launch(String...)}
      **/
     public static void main(String[] args) {
+        BaseGame game =  new BaseGame() {
+
+        };
 //        launch(args);
-        Matrix matrix = new Matrix();
-        Mino mino = new Mino();
-        mino.type = Block.I;
-        mino.rotation = Rotation.Start;
-        matrix.addMino(mino, 1, 22);
-        matrix.addMino(mino, 6, 22);
-
-        matrix.addMino(mino, 2, 21);
-        matrix.addMino(mino, 6, 21);
-
-        matrix.addMino(mino, 2, 20);
-        matrix.addMino(mino, 6, 20);
-
-        matrix.addMino(mino, 1, 19);
-        matrix.addMino(mino, 6, 19);
-        mino.rotation = Rotation.Left;
-        matrix.addMino(mino,0,20);
-//        mino.type = Block.O;
-//        matrix.addMino(mino, 0, 22);
-        matrix.print();
     }
 
     /**
