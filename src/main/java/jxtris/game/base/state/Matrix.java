@@ -1,9 +1,6 @@
 package jxtris.game.base.state;
 
-import java.util.ArrayDeque;
 import java.util.HashSet;
-import java.util.Queue;
-import java.util.function.Consumer;
 
 public class Matrix {
     private final Line[] rows;
@@ -17,7 +14,7 @@ public class Matrix {
 
         lineBuffer = new HashSet<>(4);
     }
-    public void addMino(Mino mino, int posX, int posY){
+    public void placeMino(Mino mino){
         int rowNum = 0;
         for(int i = 0; i < mino.length; i++)
             if(this.rows[mino.y(i)].setBlock(mino.x(i), mino.type))
@@ -28,16 +25,15 @@ public class Matrix {
 
         lineBuffer.clear();
     }
-    public boolean checkMino(Mino mino, int posX, int posY){
+    public boolean checkMino(Mino mino){
         for (int i = 0; i < mino.length; i++)
-            if(checkBounds(mino.x(i),mino.y(i)) || this.rows[mino.y(i)].getBlock(mino.x(i)) != Block.X)
+            if(checkBounds(mino.x(i), mino.y(i)))
                 return false;
 
         return true;
     }
-    //TODO:Implement checkBlock()
-    private boolean checkBlock(){
-        return false;
+    private boolean checkBlock(int x, int y){
+        return checkBounds(x,y) || this.rows[y].getBlock(x) != Block.X;
     }
     private boolean checkBounds(int x, int y){
         return x > 0 && x < 9 && y > 0 && y < 23;

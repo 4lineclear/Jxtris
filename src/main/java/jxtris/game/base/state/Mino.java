@@ -9,7 +9,7 @@ public class Mino {
     public Block type;
     public Rotation rotation;
     public final int length = 4;
-    private int posX, posY;
+    public int posX, posY;
     /**
      * Contains all pieces and their orientations
      * <pre>
