@@ -38,7 +38,7 @@ public class GameController extends PagicController {
     public void initialize() {
         BaseGame game = new GenericGame();
         GameBus gameBus = new GameBus(game);
-        Renderer renderer = new Renderer();
+        Renderer renderer = new Renderer(canvas.getGraphicsContext2D());
         RenderBus renderBus = new RenderBus();
         Game assembledGame = new Game(game, gameBus, renderer, renderBus);
         KeyPoller.getInstance().pollNode(canvas);

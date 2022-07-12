@@ -51,4 +51,8 @@ public class Matrix {
             rows[i].clear();
         }
     }
+
+    public Line[] getRows() {
+        return rows;
+    }
 }

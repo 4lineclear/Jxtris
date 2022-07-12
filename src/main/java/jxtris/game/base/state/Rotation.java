@@ -9,4 +9,13 @@ public enum Rotation {
         this.index = index;
     }
     public final int index;
+    public static Rotation getRotation(int index){
+        return switch (index){
+            case 0 -> Start;
+            case 1 -> Left;
+            case 2 -> Double;
+            case 3 -> Right;
+            default -> throw new IllegalStateException("Index: " + index + " is not allowed, must be an Integer 0-3");
+        };
+    }
 }

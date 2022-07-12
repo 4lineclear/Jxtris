@@ -13,10 +13,12 @@ import jxtris.game.base.state.BaseGame;
 public class Game {
     private final GameLoop gameLoop;
     public Game(BaseGame game, GameBus gameBus, Renderer renderer, RenderBus renderBus){
+        renderBus.init(game.getState(), renderer);
         this.gameLoop = new GameLoop() {
             @Override
             public void tick(long elapsed) {
-
+                gameBus.increment(elapsed);
+                renderBus.renderAll(game.getState());
             }
         };
     }

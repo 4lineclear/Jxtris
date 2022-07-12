@@ -8,20 +8,21 @@ public abstract class BaseGame {
     private final Mino mino;
     private final Matrix matrix;
     private final Queue<Block> nextMinos;
+
     protected BaseGame() {
         currentMinoHeld = false;
         heldMino = Block.X;
-
         mino = new Mino();
         matrix = new Matrix();
         nextMinos = new MinoQueue();
+        mino.setMino(nextMinos.remove(), Rotation.Start, 3 ,4);
     }
     private void placeMino(){
         matrix.placeMino(mino);
         currentMinoHeld = false;
         mino.type = nextMinos.remove();
     }
-    protected void move(int x, int y){
+    public void move(int x, int y){
         mino.posX += x;
         mino.posY += y;
         if(!matrix.checkMino(mino)){
@@ -29,13 +30,17 @@ public abstract class BaseGame {
             mino.posY -= y;
         }
     }
-    protected void rotate(Rotation newRotation){
+    public void rotate(int direction){
+        Rotation newRotation = Rotation.getRotation(mino.rotation.index + direction);
+        rotate(newRotation);
+    }
+    private void rotate(Rotation newRotation){
         Rotation oldRotation = mino.rotation;
         mino.rotation = newRotation;
         if(!matrix.checkMino(mino))
             mino.rotation = oldRotation;
     }
-    protected void hold(){
+    public void hold(){
         if(this.currentMinoHeld)
             return;
         if(heldMino == Block.X)
@@ -45,13 +50,16 @@ public abstract class BaseGame {
         mino.type = temp;
         currentMinoHeld = true;
     }
+    public State getState(){
+        return new State(mino, heldMino, nextMinos, matrix.getRows());
+    }
     private static class MinoQueue extends ArrayDeque<Block>{
         private final Block[] blocks;
 
         private MinoQueue() {
             blocks = new Block[]{
                     Block.I, Block.J, Block.O, Block.L, Block.S , Block.T, Block.Z
-            };;
+            };
             generateNextMinos();
             generateNextMinos();
         }
