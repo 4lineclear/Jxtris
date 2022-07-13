@@ -1,33 +1,34 @@
-package jxtris.game.state.base;
+package jxtris.game.base.state;
 
 public class Mino {
-    //TODO: Have mino contain its position,
-    //Accessing mino should return ints that already contain position,
-    //instead of just the singular positions of the blocks
+
+    public final int length = 4;
     public Block type;
     public Rotation rotation;
-    public final int length = 4;
     public int posX, posY;
-    public int x(int blockNum){
+
+    public static int x(Block type, Rotation rotation, int blockNum) {
+        return allMinos[type.index][rotation.index][blockNum][0];
+    }
+
+    public static int y(Block type, Rotation rotation, int blockNum) {
+        return allMinos[type.index][rotation.index][blockNum][1];
+    }
+
+    public int x(int blockNum) {
         return x(type, rotation, blockNum) + posX;
     }
-    public int y(int blockNum){
+
+    public int y(int blockNum) {
         return y(type, rotation, blockNum) + posY;
     }
-    public void setMino(Block type, Rotation rotation, int posX, int posY){
+
+    public void setMino(Block type, Rotation rotation, int posX, int posY) {
         this.type = type;
         this.rotation = rotation;
         this.posX = posX;
         this.posY = posY;
     }
-    public static int x(Block type, Rotation rotation, int blockNum){
-        return allMinos[type.index][rotation.index][blockNum][0] ;
-    }
-
-    public static int y(Block type, Rotation rotation, int blockNum){
-        return allMinos[type.index][rotation.index][blockNum][1] ;
-    }
-
     /**
      * Contains all pieces and their orientations
      * <pre>

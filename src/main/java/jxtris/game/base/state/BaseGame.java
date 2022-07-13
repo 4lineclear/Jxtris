@@ -1,4 +1,4 @@
-package jxtris.game.state.base;
+package jxtris.game.base.state;
 
 public abstract class BaseGame {
 }

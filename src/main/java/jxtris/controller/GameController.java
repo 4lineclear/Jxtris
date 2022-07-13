@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import jxtris.game.state.controls.KeyPoller;
+import jxtris.game.controls.KeyPoller;
 import jxtris.pagicFX.PagicController;
 
 public class GameController extends PagicController {

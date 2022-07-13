@@ -2,8 +2,8 @@ package jxtris.model;
 
 import javafx.beans.property.StringProperty;
 import javafx.scene.input.KeyCode;
-import jxtris.game.state.controls.Control;
-import jxtris.game.state.controls.KeyPoller;
+import jxtris.game.controls.Control;
+import jxtris.game.controls.KeyPoller;
 import jxtris.readers.PropertiesReader;
 
 import java.io.*;
