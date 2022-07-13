@@ -2,14 +2,9 @@ package jxtris;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import jxtris.game.base.state.*;
-import jxtris.game.gamemode.GenericGame;
 import jxtris.pagicFX.AutoApplication;
-import jxtris.pagicFX.Page;
 import jxtris.pagicFX.PagicApplication;
 import jxtris.pagicFX.PagicStage;
-
-import java.io.IOException;
 
 /**
  * Driver class, contains the startup of JavaFX
@@ -24,7 +19,6 @@ public class Jxtris extends AutoApplication {
      * Driver function, launches {@link Jxtris#start(Stage)} using {@link Application#launch(String...)}
      **/
     public static void main(String[] args) {
-        BaseGame game =  new GenericGame();
         launch(args);
     }
 
@@ -35,7 +29,6 @@ public class Jxtris extends AutoApplication {
      * </p>
      *
      * @param stage The stage given by {@link PagicStage}
-     * @throws IOException most likely file is not found
      **/
     @Override
     public void start(PagicStage stage) {

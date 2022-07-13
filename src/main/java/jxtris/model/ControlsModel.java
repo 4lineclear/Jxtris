@@ -2,14 +2,11 @@ package jxtris.model;
 
 import javafx.beans.property.StringProperty;
 import javafx.scene.input.KeyCode;
-import jxtris.game.base.controls.Control;
-import jxtris.game.base.controls.KeyPoller;
+import jxtris.game.state.controls.Control;
+import jxtris.game.state.controls.KeyPoller;
 import jxtris.readers.PropertiesReader;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.util.Objects;
-import java.util.Properties;
 
 public class ControlsModel{
 

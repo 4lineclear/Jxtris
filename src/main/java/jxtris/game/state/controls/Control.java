@@ -1,4 +1,4 @@
-package jxtris.game.base.controls;
+package jxtris.game.state.controls;
 
 import javafx.scene.input.KeyCode;
 
@@ -14,5 +14,4 @@ public enum Control {
     RESTART,
     ESCAPE;
     public KeyCode keyCode;
-
 }

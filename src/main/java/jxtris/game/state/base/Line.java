@@ -1,4 +1,4 @@
-package jxtris.game.base.state;
+package jxtris.game.state.base;
 
 import java.util.Arrays;
 

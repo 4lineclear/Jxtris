@@ -1,6 +1,4 @@
-package jxtris.game.base.state;
-
-import java.util.function.Consumer;
+package jxtris.game.state.base;
 
 public class Mino {
     //TODO: Have mino contain its position,
@@ -10,6 +8,26 @@ public class Mino {
     public Rotation rotation;
     public final int length = 4;
     public int posX, posY;
+    public int x(int blockNum){
+        return x(type, rotation, blockNum) + posX;
+    }
+    public int y(int blockNum){
+        return y(type, rotation, blockNum) + posY;
+    }
+    public void setMino(Block type, Rotation rotation, int posX, int posY){
+        this.type = type;
+        this.rotation = rotation;
+        this.posX = posX;
+        this.posY = posY;
+    }
+    public static int x(Block type, Rotation rotation, int blockNum){
+        return allMinos[type.index][rotation.index][blockNum][0] ;
+    }
+
+    public static int y(Block type, Rotation rotation, int blockNum){
+        return allMinos[type.index][rotation.index][blockNum][1] ;
+    }
+
     /**
      * Contains all pieces and their orientations
      * <pre>
@@ -21,7 +39,7 @@ public class Mino {
      * </pre>
      * Minos, in order are: I,J,O,L,S,T,Z
      **/
-    private final int[][][][] allMinos = {
+    private static final int[][][][] allMinos = {
             {
                     {{0, 1}, {1, 1}, {2, 1}, {3, 1}},
                     {{1, 0}, {1, 1}, {1, 2}, {1, 3}},
@@ -65,16 +83,4 @@ public class Mino {
                     {{2, 0}, {1, 1}, {2, 1}, {1, 2}}
             }
     };
-    public int x(int blockNum){
-        return this.allMinos[type.index][rotation.index][blockNum][0] + posX;
-    }
-    public int y(int blockNum){
-        return this.allMinos[type.index][rotation.index][blockNum][1] + posY;
-    }
-    public void setMino(Block type, Rotation rotation, int posX, int posY){
-        this.type = type;
-        this.rotation = rotation;
-        this.posX = posX;
-        this.posY = posY;
-    }
 }
