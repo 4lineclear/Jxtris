@@ -1,5 +1,7 @@
 package jxtris.game.base.state;
 
+import jxtris.game.base.state.piece.Mino;
+
 import java.util.HashSet;
 
 public class Matrix {

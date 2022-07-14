@@ -1,4 +1,7 @@
-package jxtris.game.base.state;
+package jxtris.game.base.state.piece;
+
+import jxtris.game.base.state.Block;
+import jxtris.game.base.state.Rotation;
 
 public class Mino {
 
@@ -6,14 +9,6 @@ public class Mino {
     public Block type;
     public Rotation rotation;
     public int posX, posY;
-
-    public static int x(Block type, Rotation rotation, int blockNum) {
-        return allMinos[type.index][rotation.index][blockNum][0];
-    }
-
-    public static int y(Block type, Rotation rotation, int blockNum) {
-        return allMinos[type.index][rotation.index][blockNum][1];
-    }
 
     public int x(int blockNum) {
         return x(type, rotation, blockNum) + posX;
@@ -28,6 +23,18 @@ public class Mino {
         this.rotation = rotation;
         this.posX = posX;
         this.posY = posY;
+    }
+    public void addXY(int x, int y) {
+        this.posX += posX;
+        this.posY += posY;
+    }
+
+    public static int x(Block type, Rotation rotation, int blockNum) {
+        return allMinos[type.index][rotation.index][blockNum][0];
+    }
+
+    public static int y(Block type, Rotation rotation, int blockNum) {
+        return allMinos[type.index][rotation.index][blockNum][1];
     }
     /**
      * Contains all pieces and their orientations
