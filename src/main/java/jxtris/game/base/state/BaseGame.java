@@ -19,9 +19,20 @@ public abstract class BaseGame {
             piece.move(-x,-y);
     }
     public void rotate(int direction){
-        piece.rotateUntil(direction, mino -> !matrix.checkMino(mino));
+        piece.rotateWhile(direction, matrix::checkMino);
     }
     public void hold(){
         piece.hold();
+    }
+    public GameState getState(){
+        return new GameState(
+                piece.mino.type,
+                piece.mino.rotation,
+                piece.mino.posX,
+                piece.mino.posY,
+                piece.heldMino.held,
+                piece.nextMinos.getNextMinos(),
+                matrix.getRows()
+        );
     }
 }

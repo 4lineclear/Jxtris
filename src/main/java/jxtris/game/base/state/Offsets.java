@@ -2,16 +2,17 @@ package jxtris.game.base.state;
 
 import java.util.HashMap;
 
-public class Offsets extends HashMap<Integer, int[][]> {
-
+public class Offsets {
+    private final HashMap<Integer, int[][]> offsets;
     public Offsets() {
+        offsets = new HashMap<>();
         /*
         Structured as:
-        offsets[a] - returns a set of tests for a given combination of previous and next rotations
-        offsets[a][b] - returns a test based on [a] and the test number
-        offsets[a][b][c] - returns the x or y offset to apply
+        offsetsArr[a] - returns a set of tests for a given combination of previous and next rotations
+        offsetsArr[a][b] - returns a test based on [a] and the test number
+        offsetsArr[a][b][c] - returns the x or y offset to apply
          */
-        final int[][][] offsets = {
+        final int[][][] offsetsArr = {
                 {{0, 0}, {+1, 0}, {+1, -1}, {0, +2}, {+1, +2}},
                 {{0, 0}, {-1, 0}, {-1, +1}, {0, -2}, {-1, -2}},
                 {{0, 0}, {-1, 0}, {-1, +1}, {0, -2}, {-1, -2}},
@@ -41,9 +42,9 @@ public class Offsets extends HashMap<Integer, int[][]> {
                 -1, -10, -12, -21, -23, -32, -30, -3,
                 2, 20, 13, 31
         };
-        for (int i = 0; i < 20; i++) {
-            this.put(keys[i], offsets[i]);
-        }
+        for (int i = 0; i < 20; i++)
+            this.offsets.put(keys[i], offsetsArr[i]);
+
     }
 
     /**
@@ -59,6 +60,6 @@ public class Offsets extends HashMap<Integer, int[][]> {
         int diff = from.index - to.index;
         if(type == Block.I && diff != 2 && diff != -2)
             key *=-1;
-        return this.get(key);
+        return this.offsets.get(key);
     }
 }

@@ -2,9 +2,15 @@ package jxtris;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import jxtris.game.base.state.BaseGame;
+import jxtris.game.base.state.Block;
+import jxtris.game.base.state.GameState;
+import jxtris.game.base.state.piece.MinoQueue;
 import jxtris.pagicFX.AutoApplication;
 import jxtris.pagicFX.PagicApplication;
 import jxtris.pagicFX.PagicStage;
+
+import java.util.Arrays;
 
 /**
  * Driver class, contains the startup of JavaFX

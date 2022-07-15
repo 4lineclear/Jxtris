@@ -31,7 +31,7 @@ public class Matrix {
 
     public boolean checkMino(Mino mino) {
         for (int i = 0; i < mino.length; i++)
-            if (checkBounds(mino.x(i), mino.y(i)))
+            if (checkBlock(mino.x(i), mino.y(i)))
                 return false;
 
         return true;

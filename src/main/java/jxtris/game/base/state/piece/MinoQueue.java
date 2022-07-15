@@ -4,12 +4,11 @@ import jxtris.game.base.state.Block;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Consumer;
 
 public class MinoQueue {
     //TODO: DOCUMENT EVERYTHING HERE
     private final int numBlocks;
-    private final Block[][] nextBlocks;
+    private final Block[][] minoBuffer;
     private int bufferNum;
     private int head;
 
@@ -18,37 +17,36 @@ public class MinoQueue {
         head = 0;
         bufferNum = 0;
         numBlocks = 7;
-        nextBlocks = new Block[2][numBlocks];
-        System.arraycopy(blocks, 0, nextBlocks[0], 0, numBlocks);
-        System.arraycopy(blocks, 0, nextBlocks[1], 0, numBlocks);
+        minoBuffer = new Block[2][numBlocks];
+        System.arraycopy(blocks, 0, minoBuffer[0], 0, numBlocks);
+        System.arraycopy(blocks, 0, minoBuffer[1], 0, numBlocks);
         shuffleCurrentBuffer();
         bufferNum = 1;
         shuffleCurrentBuffer();
         bufferNum = 0;
     }
-    public Block getNext(){
-        if(head > 5){
+    public Block next(){
+        if(head > 6){
             shuffleCurrentBuffer();
             bufferNum = 1 - bufferNum;
             head = 0;
         }
-        return nextBlocks[bufferNum][head++];
+        return minoBuffer[bufferNum][head++];
     }
     private void shuffleCurrentBuffer(){
         Random rnd = ThreadLocalRandom.current();
         for (int i = numBlocks - 1; i > 0; i--) {
             int index = rnd.nextInt(i + 1);
-            Block temp = nextBlocks[bufferNum][index];
-            nextBlocks[bufferNum][index] = nextBlocks[bufferNum][i];
-            nextBlocks[bufferNum][i] = temp;
+            Block temp = minoBuffer[bufferNum][index];
+            minoBuffer[bufferNum][index] = minoBuffer[bufferNum][i];
+            minoBuffer[bufferNum][i] = temp;
         }
     }
-    public void forNextMinos(Consumer<Block> action){
-        int i = head;
-        for (;i < 7 && i - head < 5; i++)
-            action.accept(nextBlocks[bufferNum][i]);
-        for(i = 0; i < head - 2; i++)
-            action.accept(nextBlocks[1-bufferNum][i]);
-
+    public Block[] getNextMinos(){
+        Block[] nextMinos = new Block[5];
+        int len = head > 2 ? 7 - head : 5;
+        System.arraycopy(minoBuffer[bufferNum], head, nextMinos, 0, len);
+        System.arraycopy(minoBuffer[1-bufferNum], 0, nextMinos, len, 5-len);
+        return nextMinos;
     }
 }

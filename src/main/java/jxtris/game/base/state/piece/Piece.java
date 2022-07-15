@@ -16,17 +16,22 @@ public class Piece {
         heldMino = new HeldMino();
         nextMinos = new MinoQueue();
         offsets = new Offsets();
+
+        iterateMino();
     }
     public Mino iterateMino(){
-        heldMino.setHeld(false);
-        mino.type = nextMinos.getNext();
+        heldMino.currentMinoHeld = false;
+        mino.type = nextMinos.next();
+        mino.rotation = Rotation.Start;
+        mino.posX = 3;
+        mino.posY = 3;
         return mino;
     }
     public void move(int x, int y){
         mino.posX += x;
         mino.posY += y;
     }
-    public void rotateUntil(int direction, Predicate<Mino> action){
+    public void rotateWhile(int direction, Predicate<Mino> action){
         Rotation oldRotation = mino.rotation;
         mino.rotation = Rotation.getRotation(mino.rotation.index + direction);
         int[][] tests = offsets.get(mino.type, oldRotation, mino.rotation);

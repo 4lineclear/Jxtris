@@ -3,25 +3,21 @@ package jxtris.game.base.state.piece;
 import jxtris.game.base.state.Block;
 
 public class HeldMino {
-    private boolean currentMinoHeld;
+    public boolean currentMinoHeld;
 
-    private Block held;
+    public Block held;
     public HeldMino(){
         currentMinoHeld = false;
         held = Block.X;
     }
-    public boolean hold(Mino mino, MinoQueue nextMinos){
+    public void hold(Mino mino, MinoQueue nextMinos){
         if(currentMinoHeld)
-            return false;
+            return;
         if(held == Block.X)
-            held = nextMinos.getNext();
+            held = nextMinos.next();
         Block temp = held;
         held = mino.type;
         mino.type = temp;
-        return currentMinoHeld = true;
     }
 
-    public void setHeld(boolean newHeld) {
-        currentMinoHeld = newHeld;
-    }
 }

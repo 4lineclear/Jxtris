@@ -3,7 +3,7 @@ package jxtris.game.base.state;
 import java.util.Arrays;
 
 public class Line {
-    public Block[] row;
+    private Block[] row;
     private int blockNum;
 
     public Line() {
@@ -13,7 +13,7 @@ public class Line {
             this.row[i] = Block.X;
     }
 
-    public Block[] getRow() {
+    public Block[] getBlocks() {
         return this.row;
     }
 
@@ -35,5 +35,13 @@ public class Line {
     public void clear() {
         this.blockNum = 0;
         Arrays.fill(row, Block.X);
+    }
+
+    @Override
+    public String toString() {
+        return "Line{" +
+                "row=" + Arrays.toString(row) +
+                ", blockNum=" + blockNum +
+                '}';
     }
 }
