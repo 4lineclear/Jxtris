@@ -1,4 +1,7 @@
-package jxtris.game.base.state;
+package jxtris.game.base.state.piece;
+
+import jxtris.game.base.state.Block;
+import jxtris.game.base.state.Rotation;
 
 import java.util.HashMap;
 

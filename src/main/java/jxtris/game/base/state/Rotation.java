@@ -2,9 +2,9 @@ package jxtris.game.base.state;
 
 public enum Rotation {
     Start(0),
-    Left(1),
+    Right(1),
     Double(2),
-    Right(3);
+    Left(3);
 
     public final int index;
 
@@ -20,9 +20,9 @@ public enum Rotation {
 
         return switch (key) {
             case 0 -> Start;
-            case 1 -> Left;
+            case 1 -> Right;
             case 2 -> Double;
-            case 3 -> Right;
+            case 3 -> Left;
             default -> throw new IllegalStateException("Index: " + oldIndex + " with the direction: " + direction + " is not allowed");
         };
     }

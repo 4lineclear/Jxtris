@@ -36,6 +36,13 @@ public class Line {
         this.blockNum = 0;
         Arrays.fill(row, Block.X);
     }
+    public boolean compare(Line line){
+        for (int i = 0; i < this.row.length; i++)
+            if (line.row[i] != this.row[i]) {
+                return false;
+            }
+        return true;
+    }
 
     @Override
     public String toString() {

@@ -12,9 +12,9 @@ import jxtris.pagicFX.PagicController;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 
 public class ControlsController extends PagicController {
-
     @FXML
     TextField moveLeft, moveRight, rotateLeft, rotateRight, softDrop, hardDrop, rotate180, hold, restart, escape;
     StringProperty[] controlProperties;
@@ -22,52 +22,12 @@ public class ControlsController extends PagicController {
     @FXML
     Button save;
 
-    public ControlsController() throws IOException, URISyntaxException {
+    public ControlsController() throws IOException {
         this.controlsModel = new ControlsModel();
     }
 
     public void backClick() {
         setScene("Home");
-    }
-
-    public void moveLeftChanged(KeyEvent keyEvent) {
-        setControl(keyEvent, moveLeft);
-    }
-
-    public void moveRightChanged(KeyEvent keyEvent) {
-        setControl(keyEvent, moveRight);
-    }
-
-    public void rotateLeftChanged(KeyEvent keyEvent) {
-        setControl(keyEvent, rotateLeft);
-    }
-
-    public void rotateRightChanged(KeyEvent keyEvent) {
-        setControl(keyEvent, rotateRight);
-    }
-
-    public void softDropChanged(KeyEvent keyEvent) {
-        setControl(keyEvent, softDrop);
-    }
-
-    public void hardDropChanged(KeyEvent keyEvent) {
-        setControl(keyEvent, hardDrop);
-    }
-
-    public void rotate180Changed(KeyEvent keyEvent) {
-        setControl(keyEvent, rotate180);
-    }
-
-    public void holdChanged(KeyEvent keyEvent) {
-        setControl(keyEvent, hold);
-    }
-
-    public void restartChanged(KeyEvent keyEvent) {
-        setControl(keyEvent, restart);
-    }
-
-    public void escapeChanged(KeyEvent keyEvent) {
-        setControl(keyEvent, escape);
     }
 
     public void saveClick() throws IOException {
@@ -80,12 +40,12 @@ public class ControlsController extends PagicController {
         save.setDisable(true);
     }
 
-    public void setControl(KeyEvent keyEvent, TextField textField) {
-        setControl(keyEvent.getCode(), textField);
+    public void setControl(KeyEvent keyEvent) {
+        setControl(keyEvent.getCode(), (TextField) keyEvent.getSource());
     }
 
     public void setControl(KeyCode keyCode, TextField textField) {
-        textField.setText(keyCode.toString());
+        textField.setText(keyCode.getName());
         if (keyCode == KeyCode.TAB) {
             textField.requestFocus();
             textField.deselect();

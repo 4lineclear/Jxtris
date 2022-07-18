@@ -1,6 +1,5 @@
 package jxtris.game.base.state.piece;
 
-import jxtris.game.base.state.Offsets;
 import jxtris.game.base.state.Rotation;
 
 import java.util.function.Predicate;
@@ -19,13 +18,12 @@ public class Piece {
 
         iterateMino();
     }
-    public Mino iterateMino(){
+    public void iterateMino(){
         heldMino.currentMinoHeld = false;
         mino.type = nextMinos.next();
         mino.rotation = Rotation.Start;
         mino.posX = 3;
         mino.posY = 3;
-        return mino;
     }
     public void move(int x, int y){
         mino.posX += x;
@@ -33,7 +31,7 @@ public class Piece {
     }
     public void rotateWhile(int direction, Predicate<Mino> action){
         Rotation oldRotation = mino.rotation;
-        mino.rotation = Rotation.getRotation(mino.rotation.index + direction);
+        mino.rotation = Rotation.getRotation(mino.rotation.index, direction);
         int[][] tests = offsets.get(mino.type, oldRotation, mino.rotation);
 
         for (int test = 0; test < tests.length-1; test++){

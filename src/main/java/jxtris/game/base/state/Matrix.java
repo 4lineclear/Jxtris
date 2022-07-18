@@ -31,18 +31,18 @@ public class Matrix {
 
     public boolean checkMino(Mino mino) {
         for (int i = 0; i < mino.length; i++)
-            if (checkBlock(mino.x(i), mino.y(i)))
+            if (!checkBlock(mino.x(i), mino.y(i)))
                 return false;
 
         return true;
     }
 
     private boolean checkBlock(int x, int y) {
-        return checkBounds(x, y) || this.rows[y].getBlock(x) != Block.X;
+        return checkBounds(x, y) && this.rows[y].getBlock(x) == Block.X;
     }
 
     private boolean checkBounds(int x, int y) {
-        return x > 0 && x < 9 && y > 0 && y < 23;
+        return x >= 0 && x < 10 && y >= 0 && y < 24;
     }
 
     public void clear(int rowNum, int count) {

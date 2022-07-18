@@ -1,7 +1,5 @@
 package jxtris.game.controls;
 
-import javafx.scene.input.KeyCode;
-
 public enum Control {
     MOVE_LEFT,
     MOVE_RIGHT,
@@ -12,6 +10,5 @@ public enum Control {
     ROTATE_180,
     HOLD,
     RESTART,
-    ESCAPE;
-    public KeyCode keyCode;
+    ESCAPE
 }

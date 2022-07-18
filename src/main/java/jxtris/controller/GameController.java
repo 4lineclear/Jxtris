@@ -5,10 +5,14 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import jxtris.game.Game;
 import jxtris.game.controls.KeyPoller;
+import jxtris.game.gamemodes.GenericGame;
+import jxtris.game.gamemodes.GenericRenderer;
 import jxtris.pagicFX.PagicController;
 
 public class GameController extends PagicController {
+    private Game game;
     Scene gamemode;
     @FXML
     Button playButton;
@@ -25,11 +29,13 @@ public class GameController extends PagicController {
 
     @FXML
     public void playClick() {
+        game.start();
         playButton.setDisable(true);
     }
 
     @FXML
     public void initialize() {
+        game = new Game(new GenericGame(), new GenericRenderer(this.canvas.getGraphicsContext2D()));
         KeyPoller.getInstance().pollNode(canvas);
     }
 }

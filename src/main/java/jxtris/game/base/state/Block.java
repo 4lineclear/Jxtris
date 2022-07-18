@@ -1,17 +1,22 @@
 package jxtris.game.base.state;
 
-public enum Block {
-    I(0),
-    J(1),
-    O(2),
-    L(3),
-    S(4),
-    T(5),
-    Z(6),
-    X(-1);
-    public final int index;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
-    Block(int blockNum) {
+public enum Block {
+    I(0, Color.CYAN),
+    J(1, Color.BLUE),
+    O(2, Color.YELLOW),
+    L(3, Color.ORANGE),
+    S(4, Color.RED),
+    T(5, Color.PURPLE),
+    Z(6, Color.GREEN),
+    X(-1, Color.BLACK);
+    public final int index;
+    public final Color color;
+
+    Block(int blockNum, Color color) {
         this.index = blockNum;
+        this.color = color;
     }
 }

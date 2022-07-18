@@ -33,33 +33,33 @@
         <children>
             <Label prefHeight="54.0" prefWidth="318.0" text="Move Left"/>
             <Label layoutX="10.0" layoutY="10.0" prefHeight="54.0" prefWidth="318.0" text="Move Right"/>
-            <TextField fx:id="moveLeft" editable="false" onKeyPressed="#moveLeftChanged" prefHeight="54.0"
+            <TextField fx:id="moveLeft" editable="false" onKeyPressed="#setControl" prefHeight="54.0"
                        prefWidth="320.0"/>
             <TextField fx:id="moveRight" editable="false" layoutX="328.0" layoutY="10.0"
-                       onKeyPressed="#moveRightChanged" prefHeight="54.0" prefWidth="320.0"/>
+                       onKeyPressed="#setControl" prefHeight="54.0" prefWidth="320.0"/>
             <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Rotate Left"/>
             <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Rotate Right"/>
             <TextField fx:id="rotateLeft" editable="false" layoutX="330.0" layoutY="334.0"
-                       onKeyPressed="#rotateLeftChanged" prefHeight="54.0" prefWidth="320.0"/>
+                       onKeyPressed="#setControl" prefHeight="54.0" prefWidth="320.0"/>
             <TextField fx:id="rotateRight" editable="false" layoutX="330.0" layoutY="334.0"
-                       onKeyPressed="#rotateRightChanged" prefHeight="54.0" prefWidth="320.0"/>
+                       onKeyPressed="#setControl" prefHeight="54.0" prefWidth="320.0"/>
             <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Soft Drop"/>
             <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Hard Drop"/>
-            <TextField fx:id="softDrop" editable="false" layoutX="328.0" layoutY="10.0" onKeyPressed="#softDropChanged"
+            <TextField fx:id="softDrop" editable="false" layoutX="328.0" layoutY="10.0" onKeyPressed="#setControl"
                        prefHeight="54.0" prefWidth="320.0"/>
-            <TextField fx:id="hardDrop" editable="false" layoutX="328.0" layoutY="10.0" onKeyPressed="#hardDropChanged"
+            <TextField fx:id="hardDrop" editable="false" layoutX="328.0" layoutY="10.0" onKeyPressed="#setControl"
                        prefHeight="54.0" prefWidth="320.0"/>
             <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Rotate 180"/>
             <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Hold"/>
             <TextField fx:id="rotate180" editable="false" layoutX="330.0" layoutY="334.0"
-                       onKeyPressed="#rotate180Changed" prefHeight="54.0" prefWidth="320.0"/>
-            <TextField fx:id="hold" editable="false" layoutX="330.0" layoutY="334.0" onKeyPressed="#holdChanged"
+                       onKeyPressed="#setControl" prefHeight="54.0" prefWidth="320.0"/>
+            <TextField fx:id="hold" editable="false" layoutX="330.0" layoutY="334.0" onKeyPressed="#setControl"
                        prefHeight="54.0" prefWidth="320.0"/>
             <Label layoutX="10.0" layoutY="64.0" prefHeight="54.0" prefWidth="318.0" text="Restart"/>
             <Label layoutX="10.0" layoutY="118.0" prefHeight="54.0" prefWidth="318.0" text="Escape"/>
-            <TextField fx:id="restart" editable="false" layoutX="330.0" layoutY="334.0" onKeyPressed="#restartChanged"
+            <TextField fx:id="restart" editable="false" layoutX="330.0" layoutY="334.0" onKeyPressed="#setControl"
                        prefHeight="54.0" prefWidth="320.0"/>
-            <TextField fx:id="escape" editable="false" layoutX="330.0" layoutY="334.0" onKeyPressed="#escapeChanged"
+            <TextField fx:id="escape" editable="false" layoutX="330.0" layoutY="334.0" onKeyPressed="#setControl"
                        prefHeight="54.0" prefWidth="320.0"/>
         </children>
     </FlowPane>

@@ -10,13 +10,18 @@ public abstract class BaseGame {
         matrix = new Matrix();
         piece = new Piece();
     }
-    private void placeMino(){
-        matrix.placeMino(piece.iterateMino());
+    public void placeMino(){
+        matrix.placeMino(piece.mino);
+        piece.iterateMino();
     }
-    public void move(int x, int y){
+    public boolean move(int x, int y){
         piece.move(x,y);
-        if(!matrix.checkMino(piece.mino))
-            piece.move(-x,-y);
+        if(!matrix.checkMino(piece.mino)) {
+            piece.move(-x, -y);
+            return false;
+        }
+        return true;
+
     }
     public void rotate(int direction){
         piece.rotateWhile(direction, matrix::checkMino);
@@ -26,10 +31,7 @@ public abstract class BaseGame {
     }
     public GameState getState(){
         return new GameState(
-                piece.mino.type,
-                piece.mino.rotation,
-                piece.mino.posX,
-                piece.mino.posY,
+                piece.mino,
                 piece.heldMino.held,
                 piece.nextMinos.getNextMinos(),
                 matrix.getRows()
