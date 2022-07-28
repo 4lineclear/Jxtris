@@ -18,6 +18,7 @@ public class HeldMino {
         Block temp = held;
         held = mino.type;
         mino.type = temp;
+        currentMinoHeld = true;
     }
 
 }

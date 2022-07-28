@@ -36,7 +36,7 @@ public class Piece {
 
         for (int test = 0; test < tests.length-1; test++){
             int x = tests[test][0],
-                y = tests[test][0];
+                y = tests[test][1];
             mino.addXY(x, y);
 
             if(action.test(mino)) return; // Mino fits

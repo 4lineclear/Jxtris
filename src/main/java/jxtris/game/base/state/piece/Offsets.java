@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public class Offsets {
     private final HashMap<Integer, int[][]> offsets;
+
     public Offsets() {
         offsets = new HashMap<>();
         /*
@@ -61,8 +62,10 @@ public class Offsets {
     public int[][] get(Block type, Rotation from, Rotation to) {
         int key = from.index * 10 + to.index;
         int diff = from.index - to.index;
-        if(type == Block.I && diff != 2 && diff != -2)
-            key *=-1;
+        if (type == Block.I && diff != 2 && diff != -2)
+            key *= -1;
+//        System.out.println(Arrays.deepToString(this.offsets.get(key)));
+        System.out.println(key);
         return this.offsets.get(key);
     }
 }

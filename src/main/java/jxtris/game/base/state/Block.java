@@ -8,9 +8,9 @@ public enum Block {
     J(1, Color.BLUE),
     O(2, Color.YELLOW),
     L(3, Color.ORANGE),
-    S(4, Color.RED),
+    S(4, Color.GREEN),
     T(5, Color.PURPLE),
-    Z(6, Color.GREEN),
+    Z(6, Color.RED),
     X(-1, Color.BLACK);
     public final int index;
     public final Color color;

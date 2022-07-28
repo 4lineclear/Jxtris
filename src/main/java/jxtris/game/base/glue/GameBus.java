@@ -6,6 +6,7 @@ import jxtris.game.controls.Control;
 
 public class GameBus {
     long drop, leftDas, rightDas;
+    boolean leftRotationLock, rightRotationLock, _180RotationLock, leftMoveLock, rightMoveLock;
     private final BaseGame game;
     public GameBus(BaseGame game) {
         this.game = game;
@@ -33,10 +34,16 @@ public class GameBus {
             case MOVE_RIGHT -> {
                 game.move(1,0);
             }
-            case ROTATE_LEFT ->
+            case ROTATE_LEFT -> {
+                if (leftRotationLock) return;
+                game.rotate(1);
+                leftRotationLock = true;
+            }
+            case ROTATE_RIGHT -> {
+                if (rightRotationLock) return;
                 game.rotate(-1);
-            case ROTATE_RIGHT ->
-                    game.rotate(1);
+                rightRotationLock = true;
+            }
             case SOFT_DROP -> {
                 game.move(0,1);
             }
@@ -46,9 +53,13 @@ public class GameBus {
 
                 game.placeMino();
             }
-            case ROTATE_180 ->
-                    game.rotate(2);
+            case ROTATE_180 -> {
+                if(_180RotationLock) return;
+                game.rotate(2);
+                _180RotationLock = true;
+            }
             case HOLD -> {
+                game.hold();
             }
             case RESTART -> {
             }
@@ -60,5 +71,30 @@ public class GameBus {
     public void catchKey(Control control) {
         if (control == null)
             return;
+        switch (control){
+            case MOVE_LEFT -> {
+            }
+            case MOVE_RIGHT -> {
+            }
+            case ROTATE_LEFT ->{
+                leftRotationLock = false;
+            }
+            case ROTATE_RIGHT -> {
+                rightRotationLock = false;
+            }
+            case SOFT_DROP -> {
+            }
+            case HARD_DROP -> {
+            }
+            case ROTATE_180 -> {
+                _180RotationLock = false;
+            }
+            case HOLD -> {
+            }
+            case RESTART -> {
+            }
+            case ESCAPE -> {
+            }
+        }
     }
 }

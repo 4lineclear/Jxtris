@@ -17,9 +17,6 @@ public class RenderBus {
             renderer.renderMatrix(gameState.lines());
         if (gameState.compareMino(previousState))
             renderer.renderMino(gameState.mino());
-        else {
-            System.out.println("Shit");
-        }
         if (gameState.compareHeldMino(previousState))
             renderer.renderHeldMino(gameState.heldMino());
         if (gameState.compareNextMino(previousState))
