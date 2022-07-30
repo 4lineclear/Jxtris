@@ -38,16 +38,15 @@ public class Piece {
         mino.rotation = Rotation.getRotation(mino.rotation.index, direction);
         int[][] tests = offsets.get(mino.type, oldRotation, mino.rotation);
 
-        for (int test = 0; test < tests.length-1; test++){
-            int x = tests[test][0],
-                y = tests[test][1];
+        for (int[] test : tests) {
+            int x = test[0], y = test[1];
             mino.addXY(x, y);
 
-            if(minoCheckAction.test(mino)) {
+            if (minoCheckAction.test(mino)) {
                 ghostMino.calculatePosition(mino);
-                return;
-            } // Mino fits
-            else mino.addXY(-x,-y);
+                return; // Mino fits
+            }
+            mino.addXY(-x, -y);
         }
         mino.rotation = oldRotation;
     }
