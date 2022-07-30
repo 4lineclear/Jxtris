@@ -5,7 +5,7 @@ import jxtris.game.base.state.GameState;
 import jxtris.game.controls.Control;
 
 public class GameBus {
-    long drop, leftDas, rightDas;
+    long drop, place, leftDas, rightDas;
     boolean leftRotationLock, rightRotationLock, _180RotationLock, leftMoveLock, rightMoveLock;
     private final BaseGame game;
     public GameBus(BaseGame game) {
@@ -15,9 +15,17 @@ public class GameBus {
         drop += elapsed;
         if (drop > 1000) {
             drop = 0;
-            if(!game.move(0, 1))
-                game.placeMino();
+            game.move(0,1);
         }
+        if(!game.move(0, 1)) {
+            place+=elapsed;
+            if (place > 1000){
+                place = 0;
+                game.placeMino();
+            }
+        }
+        else
+            game.move(0,-1);
     }
     public GameState getState(){
         return game.getState();

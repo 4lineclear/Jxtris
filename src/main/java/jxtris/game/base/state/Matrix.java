@@ -2,6 +2,7 @@ package jxtris.game.base.state;
 
 import jxtris.game.base.state.piece.Mino;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class Matrix {
@@ -21,7 +22,7 @@ public class Matrix {
         int rowNum = 0;
         for (int i = 0; i < mino.length; i++)
             if (this.rows[mino.y(i)].setBlock(mino.x(i), mino.type))
-                lineBuffer.add(mino.y(i) > 0 ? rowNum = mino.y(i) : mino.y(i));
+                lineBuffer.add(mino.y(i) > rowNum ? rowNum = mino.y(i) : mino.y(i));
 
         if (lineBuffer.size() > 0)
             clear(rowNum, lineBuffer.size());
@@ -53,7 +54,7 @@ public class Matrix {
             rows[i].clear(rows[j--]);
         }
 
-        for (; i >= 0; i--) {
+        for (; i > 0; i--) {
             rows[i].clear();
         }
     }

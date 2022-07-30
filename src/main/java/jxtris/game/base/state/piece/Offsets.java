@@ -64,8 +64,6 @@ public class Offsets {
         int diff = from.index - to.index;
         if (type == Block.I && diff != 2 && diff != -2)
             key *= -1;
-//        System.out.println(Arrays.deepToString(this.offsets.get(key)));
-        System.out.println(key);
         return this.offsets.get(key);
     }
 }

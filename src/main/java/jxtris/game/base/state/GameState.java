@@ -4,12 +4,15 @@ import jxtris.game.base.state.piece.Mino;
 
 import java.util.Arrays;
 
-public record GameState(Mino mino, Block heldMino, Block[] nextMinos, Line[] lines) {
+public record GameState(Mino mino, int ghostPos,Block heldMino, Block[] nextMinos, Line[] lines) {
     public boolean compareMino(GameState gameState){
         return gameState.mino.type == this.mino.type &&
                 gameState.mino.rotation == this.mino.rotation &&
                 gameState.mino.posX == this.mino.posX &&
                 gameState.mino.posY == this.mino.posY;
+    }
+    public boolean compareGhostMino(GameState gameState){
+        return gameState.ghostPos == this.ghostPos;
     }
     public boolean compareHeldMino(GameState gameState){
         return gameState.heldMino == this.heldMino;
@@ -27,13 +30,12 @@ public record GameState(Mino mino, Block heldMino, Block[] nextMinos, Line[] lin
 
         return true;
     }
+
     @Override
     public String toString() {
         return "GameState{" +
-                "type=" + mino.type +
-                ", rotation=" + mino.rotation +
-                ", posX=" + mino.posX +
-                ", posY=" + mino.posY +
+                "mino=" + mino +
+                ", ghostPos=" + ghostPos +
                 ", heldMino=" + heldMino +
                 ", nextMinos=" + Arrays.toString(nextMinos) +
                 ", lines=" + Arrays.toString(lines) +

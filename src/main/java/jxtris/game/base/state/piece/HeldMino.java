@@ -10,15 +10,16 @@ public class HeldMino {
         currentMinoHeld = false;
         held = Block.X;
     }
-    public void hold(Mino mino, MinoQueue nextMinos){
+    public boolean hold(Mino mino, MinoQueue nextMinos){
         if(currentMinoHeld)
-            return;
+            return false;
         if(held == Block.X)
             held = nextMinos.next();
         Block temp = held;
         held = mino.type;
         mino.type = temp;
         currentMinoHeld = true;
+        return true;
     }
 
 }

@@ -17,13 +17,6 @@ public class Mino {
     public int y(int blockNum) {
         return y(type, rotation, blockNum) + posY;
     }
-
-    public void setMino(Block type, Rotation rotation, int posX, int posY) {
-        this.type = type;
-        this.rotation = rotation;
-        this.posX = posX;
-        this.posY = posY;
-    }
     public void addXY(int x, int y) {
         this.posX += x;
         this.posY += y;
