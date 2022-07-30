@@ -29,7 +29,7 @@ public class Line {
 
     public void clear(Line line) {
         this.blockNum = line.blockNum;
-        this.row = line.row;
+        System.arraycopy(line.row, 0, this.row, 0, this.row.length);
     }
 
     public void clear() {
