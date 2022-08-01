@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import jxtris.game.Game;
 import jxtris.game.controls.KeyPoller;
 import jxtris.game.gamemodes.GenericGame;
@@ -35,6 +36,8 @@ public class GameController extends PagicController {
 
     @FXML
     public void initialize() {
+        this.canvas.getGraphicsContext2D().setFill(Color.GRAY);
+        this.canvas.getGraphicsContext2D().fillRect(0,0, canvas.getWidth(), canvas.getHeight());
         game = new Game(new GenericGame(), new GenericRenderer(this.canvas.getGraphicsContext2D()));
         KeyPoller.getInstance().pollNode(canvas);
     }

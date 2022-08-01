@@ -8,6 +8,7 @@ import jxtris.game.base.state.Rotation;
 import jxtris.game.base.state.piece.Mino;
 
 public abstract class BaseRenderer {
+    private final Color backgroundColor = Color.GRAY;
     private final GraphicsContext context;
     private final int size, matrixXStart, matrixYStart;
     protected BaseRenderer(GraphicsContext context){
@@ -40,7 +41,8 @@ public abstract class BaseRenderer {
     }
 
     public void renderNextMino(Block[] blocks) {
-        context.clearRect((matrixXStart + 11)*size, matrixYStart*size, size*5, size*15);
+        context.setFill(backgroundColor);
+        context.fillRect((matrixXStart + 11)*size, matrixYStart*size, size*5, size*15);
         for (int i = 0; i < blocks.length; i++)
             fillMino(blocks[i], Rotation.Start, 11, 3*i + matrixYStart);
 
@@ -52,7 +54,8 @@ public abstract class BaseRenderer {
             return;
         if (block == Block.I )
             renderPos = - 5;
-        context.clearRect(size*(matrixXStart - 5), matrixYStart*size, size*4, size*3);
+        context.setFill(backgroundColor);
+        context.fillRect(size*(matrixXStart - 5), matrixYStart*size, size*4, size*3);
         fillMino(block, Rotation.Start, renderPos, matrixYStart);
     }
 

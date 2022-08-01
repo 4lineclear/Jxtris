@@ -5,15 +5,25 @@ import jxtris.game.base.state.GameState;
 import jxtris.game.controls.Control;
 
 public class GameBus {
-    private final long leftDAS, rightDAS, ARR;
-    private long dropTime, placeTime, placeCancelCounter, leftMoveTimer, rightMoveTimer, ARRTimer;
-    private boolean leftRotationLock, rightRotationLock, _180RotationLock ,leftMoveLock, rightMoveLock, placeCancelScheduled;
+    private final long softDrop,ARR;
+    private long dropTime, placeTime, placeCancelCounter, ARRTimer;
+    private final Lockable leftRotationLock, rightRotationLock,  _180RotationLock;
+    private boolean placeCancelScheduled;
+    private final ScheduledTimer softDropTimer;
+    private final MoveTimer leftMoveTimer, rightMoveTimer;
     private final BaseGame game;
     public GameBus(BaseGame game) {
         this.game = game;
-        leftDAS = 100;
-        rightDAS = 100;
-        ARR = 10;
+        final int das = 85;
+        ARR = 0;
+        softDrop = 1;
+        leftMoveTimer = new MoveTimer(das);
+        rightMoveTimer = new MoveTimer(das);
+        softDropTimer = new ScheduledTimer(1);
+        leftRotationLock = new GenericLockable();
+        rightRotationLock = new GenericLockable();
+        _180RotationLock = new GenericLockable();
+
     }
     public void increment(long elapsed){
         dropTime += elapsed;
@@ -28,19 +38,44 @@ public class GameBus {
                 placeTime += 10;
             }
             if (placeTime > 500){
-                if(!placeCancelScheduled)
-                    placePiece();
-
-                else {
+                if(placeCancelScheduled) {
                     placeCancelCounter++;
                     placeTime = placeCancelCounter*50;
                     placeCancelScheduled = false;
                 }
+
+                else
+                    placePiece();
             }
 
         } else game.move(0, -1);
 
+        leftMoveTimer.increment(elapsed);
+        rightMoveTimer.increment(elapsed);
+
+        if(!moveDAS(elapsed, leftMoveTimer, -1))
+            moveDAS(elapsed, rightMoveTimer, 1);
+
+        if(softDropTimer.scheduled()){
+            int moveAmount = (int)(elapsed/softDrop);
+            System.out.println(moveAmount);
+            for (int i = 0; i < moveAmount; i++)
+                game.move(0, 1);
+        }
     }
+
+    private boolean moveDAS(long elapsed, ScheduledTimer moveTimer, int direction) {
+        if(!moveTimer.goalReached())
+            return false;
+
+        if(!moveTimer.scheduled()) moveTimer.reset();
+        int moveAmount = ARR == 0 ? 10: (int) (elapsed/ARR);
+        for (int i = 0; i < moveAmount; i++)
+            game.move(direction, 0);
+
+        return true;
+    }
+
     public GameState getState(){
         return game.getState();
     }
@@ -51,6 +86,19 @@ public class GameBus {
         placeCancelScheduled = false;
         game.placeMino();
     }
+    private void rotate(int direction, Lockable lockable){
+        if (lockable.locked()) return;
+        game.rotate(direction);
+        lockable.lock();
+        placeCancelScheduled = true;
+    }
+    private void move(int direction, ScheduledTimer moveTimer){
+        if(moveTimer.scheduled()) return;
+        game.move(direction, 0);
+        moveTimer.schedule();
+        placeCancelScheduled = true;
+    }
+
 
     public void throwKey(Control control) {
         if (control == null)
@@ -58,35 +106,21 @@ public class GameBus {
 
         switch (control){
             case MOVE_LEFT -> {
-                if(leftMoveLock) {
-                    return;
-                }
-                game.move(-1,0);
-                placeCancelScheduled = true;
-                leftMoveLock = true;
+                move(-1, leftMoveTimer);
+                rightMoveTimer.reset();
             }
             case MOVE_RIGHT -> {
-                if(rightMoveLock) {
-                    return;
-                }
-                game.move(1,0);
-                placeCancelScheduled = true;
-                rightMoveLock = true;
+                move(1, rightMoveTimer);
+                leftMoveTimer.reset();
             }
             case ROTATE_LEFT -> {
-                if (leftRotationLock) return;
-                game.rotate(1);
-                leftRotationLock = true;
-                placeCancelScheduled = true;
+                rotate(1, leftRotationLock);
             }
             case ROTATE_RIGHT -> {
-                if (rightRotationLock) return;
-                game.rotate(-1);
-                rightRotationLock = true;
-                placeCancelScheduled = true;
+                rotate(-1, rightRotationLock);
             }
             case SOFT_DROP -> {
-                game.move(0,1);
+                softDropTimer.schedule();
             }
             case HARD_DROP -> {
                 while (true)
@@ -95,10 +129,7 @@ public class GameBus {
                 placePiece();
             }
             case ROTATE_180 -> {
-                if(_180RotationLock) return;
-                game.rotate(2);
-                _180RotationLock = true;
-                placeCancelScheduled = true;
+                rotate(2, _180RotationLock);
             }
             case HOLD -> {
                 game.hold();
@@ -116,23 +147,24 @@ public class GameBus {
             return;
         switch (control){
             case MOVE_LEFT -> {
-                leftMoveLock = false;
+                leftMoveTimer.reset();
             }
             case MOVE_RIGHT -> {
-                rightMoveLock = false;
+                rightMoveTimer.reset();
             }
             case ROTATE_LEFT ->{
-                leftRotationLock = false;
+                leftRotationLock.reset();
             }
             case ROTATE_RIGHT -> {
-                rightRotationLock = false;
+                rightRotationLock.reset();
             }
             case SOFT_DROP -> {
+                softDropTimer.reset();
             }
             case HARD_DROP -> {
             }
             case ROTATE_180 -> {
-                _180RotationLock = false;
+                _180RotationLock.reset();
             }
             case HOLD -> {
             }
