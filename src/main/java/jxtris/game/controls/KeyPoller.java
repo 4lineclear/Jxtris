@@ -2,7 +2,7 @@ package jxtris.game.controls;
 
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
-import jxtris.game.base.glue.GameBus;
+import jxtris.game.base.glue.gameBus.GameBus;
 
 import java.util.HashMap;
 import java.util.Map;

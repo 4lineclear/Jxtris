@@ -1,9 +1,8 @@
-package jxtris.game.base.glue;
+package jxtris.game.base.glue.gameBus.components;
 
-public class ScheduledTimer implements Schedulable{
-    private long value = 0;
-    private final long goal;
-    private boolean scheduled = false;
+public class ScheduledTimer implements Schedulable, Incrementable {
+    protected long value, goal;
+    protected boolean scheduled = false;
 
     public ScheduledTimer(long goal) {
         this.goal = goal;

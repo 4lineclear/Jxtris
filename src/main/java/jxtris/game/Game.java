@@ -1,7 +1,7 @@
 package jxtris.game;
 
 import javafx.animation.AnimationTimer;
-import jxtris.game.base.glue.GameBus;
+import jxtris.game.base.glue.gameBus.GameBus;
 import jxtris.game.base.glue.RenderBus;
 import jxtris.game.base.rendering.BaseRenderer;
 import jxtris.game.base.state.BaseGame;

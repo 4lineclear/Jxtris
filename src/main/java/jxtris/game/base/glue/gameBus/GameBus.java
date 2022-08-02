@@ -1,67 +1,67 @@
-package jxtris.game.base.glue;
+package jxtris.game.base.glue.gameBus;
 
+import jxtris.game.base.glue.gameBus.components.*;
 import jxtris.game.base.state.BaseGame;
 import jxtris.game.base.state.GameState;
 import jxtris.game.controls.Control;
 
 public class GameBus {
     private final long softDrop,ARR;
-    private long dropTime, placeTime, placeCancelCounter, ARRTimer;
+    private long gravity, dropTime, ARRTimer;
     private final Lockable leftRotationLock, rightRotationLock,  _180RotationLock;
-    private boolean placeCancelScheduled;
     private final ScheduledTimer softDropTimer;
     private final MoveTimer leftMoveTimer, rightMoveTimer;
+    private final PiecePlacer piecePlacer;
     private final BaseGame game;
     public GameBus(BaseGame game) {
         this.game = game;
-        final int das = 85;
+
+        final int das = 75;
         ARR = 0;
         softDrop = 1;
+        gravity = 1000;
+
         leftMoveTimer = new MoveTimer(das);
         rightMoveTimer = new MoveTimer(das);
+
         softDropTimer = new ScheduledTimer(1);
+
         leftRotationLock = new GenericLockable();
         rightRotationLock = new GenericLockable();
         _180RotationLock = new GenericLockable();
 
+        piecePlacer = new PiecePlacer(500);
     }
     public void increment(long elapsed){
         dropTime += elapsed;
-        if (dropTime > 1000) {
+        if (dropTime > gravity) {
             dropTime = 0;
             game.move(0,1);
+            checkPlace(false);
         }
-        if(!game.move(0, 1)) {
-            placeTime += elapsed;
-            if (placeCancelScheduled) {
-                placeTime -= elapsed;
-                placeTime += 10;
-            }
-            if (placeTime > 500){
-                if(placeCancelScheduled) {
-                    placeCancelCounter++;
-                    placeTime = placeCancelCounter*50;
-                    placeCancelScheduled = false;
-                }
-
-                else
-                    placePiece();
-            }
-
-        } else game.move(0, -1);
 
         leftMoveTimer.increment(elapsed);
         rightMoveTimer.increment(elapsed);
-
-        if(!moveDAS(elapsed, leftMoveTimer, -1))
-            moveDAS(elapsed, rightMoveTimer, 1);
+        moveDAS(elapsed, leftMoveTimer, -1);
+        moveDAS(elapsed, rightMoveTimer, 1);
 
         if(softDropTimer.scheduled()){
             int moveAmount = (int)(elapsed/softDrop);
-            System.out.println(moveAmount);
             for (int i = 0; i < moveAmount; i++)
                 game.move(0, 1);
+            checkPlace(false);
         }
+        piecePlacer.increment(elapsed);
+        if (piecePlacer.goalReached()) {
+            if (piecePlacer.applyInterrupt()) {
+                if (!game.move(0, 1))
+                    placePiece();
+                else
+                    game.move(0, -1);
+
+            }
+        }
+
     }
 
     private boolean moveDAS(long elapsed, ScheduledTimer moveTimer, int direction) {
@@ -81,22 +81,34 @@ public class GameBus {
     }
 
     private void placePiece(){
-        placeTime = 0;
-        placeCancelCounter = 0;
-        placeCancelScheduled = false;
+        piecePlacer.hardReset();
         game.placeMino();
+        gravity = 1000;
     }
     private void rotate(int direction, Lockable lockable){
         if (lockable.locked()) return;
         game.rotate(direction);
         lockable.lock();
-        placeCancelScheduled = true;
+        checkPlace(true);
     }
     private void move(int direction, ScheduledTimer moveTimer){
         if(moveTimer.scheduled()) return;
         game.move(direction, 0);
         moveTimer.schedule();
-        placeCancelScheduled = true;
+        checkPlace(true);
+    }
+    private void checkPlace(boolean interrupt){
+        if (interrupt) {
+            piecePlacer.interrupt();
+            if(piecePlacer.scheduled())gravity = piecePlacer.applyGravity();
+        }
+        if (game.move(0, 1)) {
+            game.move(0,-1);
+            piecePlacer.reset();
+            return;
+        }
+
+        piecePlacer.schedule();
     }
 
 
@@ -133,7 +145,6 @@ public class GameBus {
             }
             case HOLD -> {
                 game.hold();
-                placeCancelScheduled = true;
             }
             case RESTART -> {
             }

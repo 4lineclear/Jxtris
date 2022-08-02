@@ -52,8 +52,8 @@ public abstract class BaseRenderer {
         int renderPos = -4;
         if(block == Block.X)
             return;
-        if (block == Block.I )
-            renderPos = - 5;
+        if (block == Block.I ||  block == Block.O)
+            renderPos = -5;
         context.setFill(backgroundColor);
         context.fillRect(size*(matrixXStart - 5), matrixYStart*size, size*4, size*3);
         fillMino(block, Rotation.Start, renderPos, matrixYStart);

@@ -1,4 +1,4 @@
-package jxtris.game.base.glue;
+package jxtris.game.base.glue.gameBus.components;
 
 public interface Lockable {
     void lock();
