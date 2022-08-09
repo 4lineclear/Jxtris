@@ -18,10 +18,11 @@ public abstract class BaseRenderer {
         matrixYStart = 4;
     }
     private void fillBlock(int x, int y){
-        context.fillRect(size*x + x + matrixXStart*size, size*y + y, size, size);
+        context.fillRect(size*x /*+ x*/ + matrixXStart*size, size*y /*+ y*/, size, size);
     }
-    private void fillMino(Block block, Rotation rotation, int x, int y){
-        context.setFill(block.color);
+    private void fillMino(Block block, Rotation rotation, int x, int y, float opacity){
+        Color color = Color.hsb(block.color.getHue(), block.color.getSaturation(), block.color.getBrightness(), opacity);
+        context.setFill(color);
         for (int i = 0; i < 4; i++) {
            int totalX = Mino.x(block, rotation, i) + x;
            int totalY = Mino.y(block, rotation, i) + y;
@@ -30,6 +31,9 @@ public abstract class BaseRenderer {
             fillBlock(totalX, totalY);
         }
 
+    }
+    private void fillMino(Block block, Rotation rotation, int x, int y){
+        fillMino(block,rotation,x,y,1);
     }
     public void renderMatrix(Line[] lines) {
         for (int i = 4; i < lines.length; i++) {
@@ -64,6 +68,6 @@ public abstract class BaseRenderer {
     }
 
     public void renderGhostMino(Mino mino, int ghostPos) {
-        fillMino(mino.type, mino.rotation, mino.posX, ghostPos);
+        fillMino(mino.type, mino.rotation, mino.posX, ghostPos, 0.5f);
     }
 }

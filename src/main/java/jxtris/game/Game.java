@@ -9,17 +9,14 @@ import jxtris.game.controls.KeyPoller;
 
 public class Game extends AnimationTimer {
 
-    private long startTime;
-    private long previousTime;
-    private long drop;
+    private double startTime;
+    private double previousTime;
     private final GameBus gameBus;
     private final RenderBus renderBus;
     public Game(BaseGame game, BaseRenderer renderer){
         this.gameBus = new GameBus(game);
         this.renderBus = new RenderBus(renderer, game.getState());
-
         KeyPoller.getInstance().setGameBus(gameBus);
-        drop = 0;
     }
     @Override
     public void start(){
@@ -29,7 +26,7 @@ public class Game extends AnimationTimer {
     }
     @Override
     public void handle(long now) {
-        gameBus.increment((long) ((now - previousTime) / 1e6) );
+        gameBus.increment((now - previousTime) / 1e6 );
         previousTime = now;
         renderBus.renderChanges(gameBus.getState());
     }

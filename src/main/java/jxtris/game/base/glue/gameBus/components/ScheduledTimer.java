@@ -1,10 +1,10 @@
 package jxtris.game.base.glue.gameBus.components;
 
 public class ScheduledTimer implements Schedulable, Incrementable {
-    protected long value, goal;
+    protected double value, goal;
     protected boolean scheduled = false;
 
-    public ScheduledTimer(long goal) {
+    public ScheduledTimer(double goal) {
         this.goal = goal;
     }
 
@@ -12,7 +12,7 @@ public class ScheduledTimer implements Schedulable, Incrementable {
         scheduled = true;
     }
 
-    public void increment(long increment){
+    public void increment(double increment){
         if(!scheduled) return;
         value += increment;
     }

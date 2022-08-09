@@ -6,25 +6,27 @@ import jxtris.game.base.state.GameState;
 import jxtris.game.controls.Control;
 
 public class GameBus {
-    private final long softDrop,ARR;
-    private long gravity, dropTime, ARRTimer;
+    private long ARRTimer;
     private final Lockable leftRotationLock, rightRotationLock,  _180RotationLock;
-    private final ScheduledTimer softDropTimer;
-    private final MoveTimer leftMoveTimer, rightMoveTimer;
     private final PiecePlacer piecePlacer;
+    private final ScheduledTimer softDropTimer, gravityDropper;
+    private final MoveTimer leftMoveTimer, rightMoveTimer;
     private final BaseGame game;
     public GameBus(BaseGame game) {
         this.game = game;
 
         final int das = 75;
-        ARR = 0;
-        softDrop = 1;
-        gravity = 1000;
 
         leftMoveTimer = new MoveTimer(das);
         rightMoveTimer = new MoveTimer(das);
 
         softDropTimer = new ScheduledTimer(1);
+        gravityDropper = new ScheduledTimer(1000) {
+            @Override
+            public void increment(double increment) {
+                value += increment;
+            }
+        };
 
         leftRotationLock = new GenericLockable();
         rightRotationLock = new GenericLockable();
@@ -32,12 +34,11 @@ public class GameBus {
 
         piecePlacer = new PiecePlacer(500);
     }
-    public void increment(long elapsed){
-        dropTime += elapsed;
-        if (dropTime > gravity) {
-            dropTime = 0;
+    public void increment(double elapsed){
+        gravityDropper.increment(elapsed);
+        if (gravityDropper.goalReached()) {
+            gravityDropper.reset();
             game.move(0,1);
-            checkPlace(false);
         }
 
         leftMoveTimer.increment(elapsed);
@@ -46,34 +47,34 @@ public class GameBus {
         moveDAS(elapsed, rightMoveTimer, 1);
 
         if(softDropTimer.scheduled()){
-            int moveAmount = (int)(elapsed/softDrop);
+            softDropTimer.increment(elapsed);
+            int moveAmount = (int)(elapsed/1);
             for (int i = 0; i < moveAmount; i++)
                 game.move(0, 1);
             checkPlace(false);
         }
         piecePlacer.increment(elapsed);
-        if (piecePlacer.goalReached()) {
-            if (piecePlacer.applyInterrupt()) {
-                if (!game.move(0, 1))
-                    placePiece();
-                else
-                    game.move(0, -1);
+        if(piecePlacer.goalReached() )
+            placePiece();
+        if(piecePlacer.forcePlace()){
+            while (true)
+                if (!game.move(0, 1)) break;
 
-            }
+            placePiece();
         }
+
 
     }
 
-    private boolean moveDAS(long elapsed, ScheduledTimer moveTimer, int direction) {
+    private void moveDAS(double elapsed, ScheduledTimer moveTimer, int direction) {
         if(!moveTimer.goalReached())
-            return false;
+            return;
 
         if(!moveTimer.scheduled()) moveTimer.reset();
-        int moveAmount = ARR == 0 ? 10: (int) (elapsed/ARR);
+        int moveAmount = 0 == 0 ? 10: (int) (elapsed/0);
         for (int i = 0; i < moveAmount; i++)
             game.move(direction, 0);
-
-        return true;
+        checkPlace(true);
     }
 
     public GameState getState(){
@@ -81,9 +82,8 @@ public class GameBus {
     }
 
     private void placePiece(){
-        piecePlacer.hardReset();
+        piecePlacer.reset();
         game.placeMino();
-        gravity = 1000;
     }
     private void rotate(int direction, Lockable lockable){
         if (lockable.locked()) return;
@@ -97,20 +97,16 @@ public class GameBus {
         moveTimer.schedule();
         checkPlace(true);
     }
-    private void checkPlace(boolean interrupt){
-        if (interrupt) {
-            piecePlacer.interrupt();
-            if(piecePlacer.scheduled())gravity = piecePlacer.applyGravity();
-        }
-        if (game.move(0, 1)) {
-            game.move(0,-1);
-            piecePlacer.reset();
+    private void checkPlace(boolean softInterrupt){
+        if (softInterrupt)
+            piecePlacer.softInterrupt();
+        if(game.canMove(0,1)){
+            if(piecePlacer.scheduled())
+                piecePlacer.hardInterrupt();
             return;
         }
-
         piecePlacer.schedule();
     }
-
 
     public void throwKey(Control control) {
         if (control == null)

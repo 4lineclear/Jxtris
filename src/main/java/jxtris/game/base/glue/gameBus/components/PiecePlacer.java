@@ -1,36 +1,54 @@
 package jxtris.game.base.glue.gameBus.components;
 
 public class PiecePlacer extends ScheduledTimer {
-    private boolean interrupted;
-    private final long originalGoal;
-    private long accumulated;
-
-    public PiecePlacer(long goal) {
+    private final double originalGoal;
+    private int softInterruptCounter;
+    private boolean softInterrupt, hardInterrupt, forcePlace;
+    public PiecePlacer(double goal) {
         super(goal);
         originalGoal = goal;
     }
-    public void interrupt(){
-        interrupted = true;
-    }
-    public boolean applyInterrupt(){
-        if(!interrupted) return true;
-        interrupted = false;
-        return (goal+=500) >= 5500;
-    }
-    public long applyGravity(){
-        return 1000 - ( 100 * (accumulated/500) );
+
+    @Override
+    public void reset(){
+        super.reset();
+        goal = originalGoal;
+        softInterrupt = false;
+        hardInterrupt = false;
+        softInterruptCounter = 0;
+        forcePlace = false;
     }
 
     @Override
-    public void reset() {
-        System.out.println(value + " " + goal + " " + accumulated);
-        super.reset();
-        accumulated +=500;
-        goal = originalGoal;
-        interrupted = false;
+    public boolean goalReached() {
+        if(super.goalReached())
+            applyInterrupt();
+        return super.goalReached();
     }
-    public void hardReset(){
-        reset();
-        accumulated = 0;
+
+    public void applyInterrupt(){
+        if(hardInterrupt){
+            goal+=500;
+            softInterruptCounter = 0;
+            scheduled = false;
+        } else if (softInterrupt) {
+            goal+=500;
+            if(++softInterruptCounter > 10)
+                forcePlace = true;
+        }
+        if(goal > 20000)
+            forcePlace = true;
+        hardInterrupt = false;
+        softInterrupt = false;
+    }
+    public void softInterrupt(){
+        softInterrupt = true;
+    }
+    public void hardInterrupt(){
+        hardInterrupt = true;
+    }
+
+    public boolean forcePlace() {
+        return forcePlace;
     }
 }

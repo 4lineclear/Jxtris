@@ -23,6 +23,12 @@ public abstract class BaseGame {
         return true;
 
     }
+    public boolean canMove(int x, int y){
+        if(!move(x, y))
+            return false;
+        piece.move(-x, -y);
+        return true;
+    }
     public void rotate(int direction){
         piece.rotateWhile(direction);
     }
