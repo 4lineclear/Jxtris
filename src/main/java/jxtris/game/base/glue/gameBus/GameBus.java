@@ -9,7 +9,7 @@ public class GameBus {
     private long ARRTimer;
     private final Lockable leftRotationLock, rightRotationLock,  _180RotationLock;
     private final PiecePlacer piecePlacer;
-    private final ScheduledTimer softDropTimer, gravityDropper;
+    private final GravityTimer gravityTimer;
     private final MoveTimer leftMoveTimer, rightMoveTimer;
     private final BaseGame game;
     public GameBus(BaseGame game) {
@@ -19,14 +19,7 @@ public class GameBus {
 
         leftMoveTimer = new MoveTimer(das);
         rightMoveTimer = new MoveTimer(das);
-
-        softDropTimer = new ScheduledTimer(1);
-        gravityDropper = new ScheduledTimer(1000) {
-            @Override
-            public void increment(double increment) {
-                value += increment;
-            }
-        };
+        gravityTimer = new GravityTimer(1000, 15);
 
         leftRotationLock = new GenericLockable();
         rightRotationLock = new GenericLockable();
@@ -34,35 +27,23 @@ public class GameBus {
 
         piecePlacer = new PiecePlacer(500);
     }
+    static int tot;
     public void increment(double elapsed){
-        gravityDropper.increment(elapsed);
-        if (gravityDropper.goalReached()) {
-            gravityDropper.reset();
+        gravityTimer.increment(elapsed);
+        if (gravityTimer.goalReached()) {
+            gravityTimer.reset();
             game.move(0,1);
+            checkPlace(false);
         }
-
         leftMoveTimer.increment(elapsed);
         rightMoveTimer.increment(elapsed);
         moveDAS(elapsed, leftMoveTimer, -1);
         moveDAS(elapsed, rightMoveTimer, 1);
-
-        if(softDropTimer.scheduled()){
-            softDropTimer.increment(elapsed);
-            int moveAmount = (int)(elapsed/1);
-            for (int i = 0; i < moveAmount; i++)
-                game.move(0, 1);
-            checkPlace(false);
-        }
         piecePlacer.increment(elapsed);
         if(piecePlacer.goalReached() )
             placePiece();
-        if(piecePlacer.forcePlace()){
-            while (true)
-                if (!game.move(0, 1)) break;
-
-            placePiece();
-        }
-
+        if(piecePlacer.forcePlace())
+            hardDrop();
 
     }
 
@@ -72,9 +53,9 @@ public class GameBus {
 
         if(!moveTimer.scheduled()) moveTimer.reset();
         int moveAmount = 0 == 0 ? 10: (int) (elapsed/0);
+        if(game.canMove(direction, 0)) checkPlace(true);
         for (int i = 0; i < moveAmount; i++)
             game.move(direction, 0);
-        checkPlace(true);
     }
 
     public GameState getState(){
@@ -91,14 +72,15 @@ public class GameBus {
         lockable.lock();
         checkPlace(true);
     }
-    private void move(int direction, ScheduledTimer moveTimer){
-        if(moveTimer.scheduled()) return;
+    private void move(int direction, ScheduledTimer moveTimer, ScheduledTimer otherTimer){
+        if(moveTimer.scheduled() ) return;
+        if(game.canMove(direction, 0)) checkPlace(true);
         game.move(direction, 0);
         moveTimer.schedule();
-        checkPlace(true);
+        otherTimer.reset();
     }
     private void checkPlace(boolean softInterrupt){
-        if (softInterrupt)
+        if (softInterrupt && piecePlacer.scheduled())
             piecePlacer.softInterrupt();
         if(game.canMove(0,1)){
             if(piecePlacer.scheduled())
@@ -107,6 +89,12 @@ public class GameBus {
         }
         piecePlacer.schedule();
     }
+    private void hardDrop(){
+        while (true)
+            if (!game.move(0, 1)) break;
+
+        placePiece();
+    }
 
     public void throwKey(Control control) {
         if (control == null)
@@ -114,12 +102,10 @@ public class GameBus {
 
         switch (control){
             case MOVE_LEFT -> {
-                move(-1, leftMoveTimer);
-                rightMoveTimer.reset();
+                move(-1, leftMoveTimer, rightMoveTimer);
             }
             case MOVE_RIGHT -> {
-                move(1, rightMoveTimer);
-                leftMoveTimer.reset();
+                move(1, rightMoveTimer, leftMoveTimer);
             }
             case ROTATE_LEFT -> {
                 rotate(1, leftRotationLock);
@@ -128,13 +114,10 @@ public class GameBus {
                 rotate(-1, rightRotationLock);
             }
             case SOFT_DROP -> {
-                softDropTimer.schedule();
+                gravityTimer.scheduleSoftDrop();
             }
             case HARD_DROP -> {
-                while (true)
-                    if (!game.move(0, 1)) break;
-
-                placePiece();
+                hardDrop();
             }
             case ROTATE_180 -> {
                 rotate(2, _180RotationLock);
@@ -166,7 +149,7 @@ public class GameBus {
                 rightRotationLock.reset();
             }
             case SOFT_DROP -> {
-                softDropTimer.reset();
+                gravityTimer.stopSoftDrop();
             }
             case HARD_DROP -> {
             }
